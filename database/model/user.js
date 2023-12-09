@@ -23,6 +23,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    permission:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   });
   return User;
 };

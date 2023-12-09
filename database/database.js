@@ -13,43 +13,59 @@ const sequelize = new Sequelize({
 
 const User = userModel(sequelize);
 
+(async () => {
+    try {
+        const adminpassword = await bcrypt.hash('admin', 10)
+        const adminUser = await User.create({
+            fullname: 'admin',
+            email: 'admin@gmail.com',
+            password: adminpassword,
+            permission: 'admin'
+        });
+        // Continue with code after the User creation
+    } catch (error) {
+        // Handle errors here
+    }
+})();
+
 sequelize.sync()
 
 const createUser = async (fullname, email, password) => {
-        User.sync()
-
-        const hashed = await bcrypt.hash(password, 10)
-
-        try{
-            const newUser = await User.create({
-                fullname: fullname,
-                email: email,
-                password: hashed
-            })
-
-            return newUser.JSON()
-        }
-        catch{
-            return null
-        }
-}
-
-const authUserLogin = async (email,password) =>{
     User.sync()
 
-    try{
+    const hashed = await bcrypt.hash(password, 10)
+
+    try {
+        const newUser = await User.create({
+            fullname: fullname,
+            email: email,
+            password: hashed,
+            permission: 'admin'
+        })
+
+        return newUser.JSON()
+    }
+    catch {
+        return null
+    }
+}
+
+const authUserLogin = async (email, password) => {
+    User.sync()
+
+    try {
         const user = await User.findUser(email)
 
-        const isvalid = await bcrypt.compare(password,user.password)
+        const isvalid = await bcrypt.compare(password, user.password)
 
-        if (isvalid){
+        if (isvalid) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch{
+    catch {
         return null
     }
 }
