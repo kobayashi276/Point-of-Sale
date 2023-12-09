@@ -11,11 +11,18 @@ router.get('/register',(req,res) => {
 })
 
 router.post('/register',async (req,res) =>{
-    const {fullname, email, psw} = req.body
+    const {fullname, email, psw, pswrepeat} = req.body
 
-    console.log(fullname,email,psw)
+    console.log(fullname,email,psw,pswrepeat)
 
-    await createUser(fullname,email,psw)
+    const user = await createUser(fullname,email,psw)
+
+    if (user){
+        res.redirect('/login')
+    }
+    else{
+        res.redirect('/register')
+    }
 })
 
 module.exports = router;
