@@ -27,30 +27,31 @@ const createUser = async (fullname, email, password) => {
                 password: hashed
             })
 
-            return user.JSON()
+            return newUser.JSON()
         }
         catch{
             return null
         }
 }
 
-// async function createUser(fullname,email,password){
-//     User.sync()
+const authUserLogin = async (email,password) =>{
+    User.sync()
 
-//     const hashed = await bcrypt.hash(password, 10)
+    try{
+        const user = await User.findUser(email)
 
-//     try{
-//         const newUser = await User.create({
-//             fullname: fullname,
-//             email: email,
-//             password: hashed
-//         })
+        const isvalid = await bcrypt.compare(password,user.password)
 
-//         console.log('User added');
-//     }
-//     catch{
-//         console.log('User existed')
-//     }
-// }
+        if (isvalid){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch{
+        return null
+    }
+}
 
-module.exports = { createUser }
+module.exports = { createUser, authUserLogin }
