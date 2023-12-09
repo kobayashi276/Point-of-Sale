@@ -1,9 +1,22 @@
 const express = require('express')
 const router = express.Router()
-const {createUser} = require('../database/database')
+const {createUser, authUserLogin} = require('../database/database')
 
 router.get('/login',(req,res) => {
     res.render('login')
+})
+
+router.post('/login',(req,res) =>{
+    const {email,psw} = req.body
+
+    const user = authUserLogin(email)
+
+    if (user){
+        res.redirect('/')
+    }
+    else{
+        res.redirect('/login')
+    }
 })
 
 router.get('/register',(req,res) => {
