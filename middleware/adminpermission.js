@@ -3,6 +3,8 @@ require('dotenv/config')
 
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
+console.log(SECRET_KEY)
+
 const authenticate = (req, res, next) => {
     const token = req.session.access_token
 
@@ -15,8 +17,13 @@ const authenticate = (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, SECRET_KEY);
-        req.user = decoded;
-        next();
+        if (decoded.permission==='admin'){
+            req.user = decoded;
+            next();
+        }
+        else{
+            return res.status(401).json({ error: 'Access denied. No permisison.' });
+        }
     } catch (error) {
         console.error(error);
         res.status(401).json({ error: 'Invalid token.' });
