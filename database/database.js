@@ -15,18 +15,42 @@ const User = userModel(sequelize);
 
 sequelize.sync()
 
-async function createUser(fullname,email,password){
-    User.sync()
+const createUser = async (fullname, email, password) => {
+        User.sync()
 
-    const hashed = await bcrypt.hash(password, 10)
+        const hashed = await bcrypt.hash(password, 10)
 
-    const newUser = await User.create({
-        fullname: fullname,
-        email: email,
-        password: hashed
-    })
+        try{
+            const newUser = await User.create({
+                fullname: fullname,
+                email: email,
+                password: hashed
+            })
 
-    console.log('User added');
+            return user.JSON()
+        }
+        catch{
+            return null
+        }
 }
 
-module.exports = {createUser}
+// async function createUser(fullname,email,password){
+//     User.sync()
+
+//     const hashed = await bcrypt.hash(password, 10)
+
+//     try{
+//         const newUser = await User.create({
+//             fullname: fullname,
+//             email: email,
+//             password: hashed
+//         })
+
+//         console.log('User added');
+//     }
+//     catch{
+//         console.log('User existed')
+//     }
+// }
+
+module.exports = { createUser }
