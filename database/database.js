@@ -54,7 +54,13 @@ const authUserLogin = async (email, password) => {
     User.sync()
 
     try {
-        const user = await User.findUser(email)
+        var user = await User.findOne({
+            where:{
+                email: email,
+            }
+        })
+
+        user = user.toJSON()
 
         const isvalid = await bcrypt.compare(password, user.password)
 
@@ -65,7 +71,8 @@ const authUserLogin = async (email, password) => {
             return null
         }
     }
-    catch {
+    catch(err) {
+        console.log(err)
         return null
     }
 }

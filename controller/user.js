@@ -8,13 +8,18 @@ router.get('/login',(req,res) => {
     res.render('login')
 })
 
-router.post('/login',(req,res) =>{
+router.post('/login', async (req,res) =>{
     const {email,psw} = req.body
 
-    const user = authUserLogin(email)
+    const user = await authUserLogin(email,psw)
+    
+    const payload = {
+        email: user.email, 
+        permission: user.permission
+    }
 
     if (user){
-        const token = jwt.sign({ userId: user.id, username: user.username, permission: user.permission }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
         req.session.access_token = token
         console.log(token)
         res.redirect('/')
