@@ -5,10 +5,10 @@ require('dotenv/config')
 
 const sequelize = new Sequelize({
     dialect: 'mysql',
-    host: process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME,
+    host: process.env.DATABASE_HOST || 'localhost:3306',
+    username: process.env.DATABASE_USERNAME || 'root',
+    password: process.env.DATABASE_PASSWORD || '123456',
+    database: process.env.DATABASE_NAME || 'finalnodejs',
 })
 
 const User = userModel(sequelize);
@@ -55,7 +55,7 @@ const authUserLogin = async (email, password) => {
 
     try {
         var user = await User.findOne({
-            where:{
+            where: {
                 email: email,
             }
         })
@@ -71,7 +71,7 @@ const authUserLogin = async (email, password) => {
             return null
         }
     }
-    catch(err) {
+    catch (err) {
         console.log(err)
         return null
     }
