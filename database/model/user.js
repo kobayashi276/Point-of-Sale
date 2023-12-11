@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    fullname:{
+    fullname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,7 +23,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    permission:{
+    permission: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    active: {
       type: DataTypes.STRING,
       allowNull: false,
     }

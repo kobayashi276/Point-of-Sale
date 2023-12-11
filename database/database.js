@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize')
 const userModel = require('./model/user')
+const authStatusModel = require('./model/authstatus')
 const bcrypt = require('bcrypt')
 require('dotenv/config')
 
@@ -12,6 +13,7 @@ const sequelize = new Sequelize({
 })
 
 const User = userModel(sequelize);
+const AuthStatus = authStatusModel(sequelize);
 
 (async () => {
     try {
@@ -20,7 +22,8 @@ const User = userModel(sequelize);
             fullname: 'admin',
             email: 'admin@gmail.com',
             password: adminpassword,
-            permission: 'admin'
+            permission: 'admin',
+            active: "true"
         });
         // Continue with code after the User creation
     } catch (error) {
@@ -29,6 +32,59 @@ const User = userModel(sequelize);
 })();
 
 sequelize.sync()
+
+const createAuthStatus = async (id,token) => {
+    AuthStatus.sync()
+
+    try{
+        const auth = await AuthStatus.create({
+            id: id,
+            token: token
+        })
+
+        return auth
+    }
+    catch{
+        return null
+    }
+}
+
+const getTokenVerifyAuthStatus = async (id) => {
+    AuthStatus.sync()
+    try{
+        const auth = await AuthStatus.findByPk(id)
+        await AuthStatus.destroy({
+            where:{
+                id: id
+            }
+        })
+        return auth.token
+    }
+    catch{
+        return null
+    }
+}
+
+const changeUserActiveStatus = async (id) =>{
+    User.sync()
+
+    try{
+        const user = await User.update({
+            active: 'true'
+        },
+        {
+            where:{
+                id: id
+            },
+            returnning: true
+        })
+
+        return user
+    }
+    catch{
+        return null
+    }
+}
 
 const createUser = async (fullname, email, password) => {
     User.sync()
@@ -40,10 +96,11 @@ const createUser = async (fullname, email, password) => {
             fullname: fullname,
             email: email,
             password: hashed,
-            permission: 'admin'
+            permission: 'user',
+            active: "false"
         })
 
-        return newUser.JSON()
+        return newUser
     }
     catch {
         return null
@@ -77,4 +134,4 @@ const authUserLogin = async (email, password) => {
     }
 }
 
-module.exports = { createUser, authUserLogin }
+module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus }
