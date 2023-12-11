@@ -16,7 +16,13 @@ const authenticate = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, SECRET_KEY);
+        let decoded = null;
+        try{
+            decoded = jwt.verify(token, SECRET_KEY);
+        }
+        catch{
+            res.redirect('/login')
+        }
         if (decoded.permission==='admin'){
             req.user = decoded;
             next();
@@ -26,7 +32,7 @@ const authenticate = (req, res, next) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(401).json({ error: 'Invalid token.' });
+        res.redirect('/login')
     }
 };
 
