@@ -28,14 +28,17 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const { email, psw } = req.body
+    const { username, psw } = req.body
 
-    const user = await authUserLogin(email, psw)
+    console.log(username)
+
+    const user = await authUserLogin(username, psw)
 
     if (user) {
         if (user.active === 'true') {
             const payload = {
                 email: user.email,
+                username: user.fullname,
                 permission: user.permission
             }
             const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
@@ -58,6 +61,7 @@ router.post('/login', async (req, res) => {
                 changeUserActiveStatus(user.id)
                 const payload = {
                     email: user.email,
+                    username: user.fullname,
                     permission: user.permission
                 }
                 const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
@@ -77,11 +81,11 @@ router.get('/register', adminpermission, (req, res) => {
 })
 
 router.post('/register', adminpermission, async (req, res) => {
-    const { fullname, email } = req.body
+    const { email } = req.body
 
     const password = generatePassword();
     const payload = {
-        fullname: fullname,
+        fullname: password,
         email: email,
         password: password,
     }
@@ -92,16 +96,17 @@ router.post('/register', adminpermission, async (req, res) => {
         from: 'yuokawaii84@gmail.com',
         to: email,
         subject: 'Email Verification',
-        text: `Your account has been created. Please login at ${loginLink} for verification. This will expire about 1 minute \n Email: ${email}, Password: ${password}`,
+        text: `Your account has been created. Please login at ${loginLink} for verification. This will expire about 1 minute \n User: ${password}, Password: ${password}`,
     };
     transporter.sendMail(mailOptions, async (error, info) => {
         if (error) {
             console.log(error)
         }
         else {
-            const user = await createUser(fullname, email, password)
+            const user = await createUser(password, email, password)
 
             if (user) {
+                console.log(user)
                 await createAuthStatus(user.id, token)
             }
 
