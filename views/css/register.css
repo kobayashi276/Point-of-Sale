@@ -1,0 +1,88 @@
+/* Overall body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Add this to make sure padding and borders are included in the total width and height */
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+/* Container styling */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    animation: fadeIn 0.5s;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Headings and paragraph styling */
+h1, p {
+    text-align: center;
+}
+
+/* Input field styling */
+input[type="text"], input[type="password"] {
+    width: calc(100% - 20px); /* Adjust width to account for padding */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Button styling */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: calc(100% - 20px); /* Adjust button width if necessary */
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.registerbtn:hover {
+    opacity:1;
+}
+
+/* Bottom text styling */
+.container.signin {
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 16px;
+}
+
+/* Link styling */
+a {
+    color: dodgerblue;
+    text-decoration: none; /* Optional: Removes underline from links */
+}
+
+label {
+    white-space: normal; /* Allows text to wrap */
+    display: block; /* Makes the label take up the full width */
+    margin-bottom: 10px; /* Adds some space below the label */
+}
