@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
             primaryKey: true,
         },
         token: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT('long'),
             allowNull: false,
         }
     });

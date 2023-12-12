@@ -41,10 +41,12 @@ const createAuthStatus = async (id,token) => {
             id: id,
             token: token
         })
+        
 
         return auth
     }
-    catch{
+    catch(err){
+        console.log(err)
         return null
     }
 }
@@ -107,13 +109,13 @@ const createUser = async (fullname, email, password) => {
     }
 }
 
-const authUserLogin = async (email, password) => {
+const authUserLogin = async (username, password) => {
     User.sync()
 
     try {
         var user = await User.findOne({
             where: {
-                email: email,
+                fullname: username,
             }
         })
 
