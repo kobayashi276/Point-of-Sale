@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, authUserLogin, getTokenVerifyAuthStatus, createAuthStatus, changeUserActiveStatus } = require('../database/database')
+const { createUser, authUserLogin, getTokenVerifyAuthStatus, createAuthStatus, changeUserActiveStatus, getUser, changeUserPassword } = require('../database/database')
 const jwt = require('jsonwebtoken');
 const adminpermission = require('../middleware/adminpermission')
+const logincheck = require('../middleware/logincheck')
+const logoutcheck = require('../middleware/logoutcheck')
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
@@ -23,52 +25,53 @@ const transporter = nodemailer.createTransport({
 });
 
 
-router.get('/login', (req, res) => {
+router.get('/login',logoutcheck, (req, res) => {
     res.render('login')
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login',logoutcheck, async (req, res) => {
     const { username, psw } = req.body
 
     console.log(username)
 
     const user = await authUserLogin(username, psw)
+    const payload = {
+        email: user.email,
+        username: user.fullname,
+        permission: user.permission
+    }
+
 
     if (user) {
         if (user.active === 'true') {
-            const payload = {
-                email: user.email,
-                username: user.fullname,
-                permission: user.permission
-            }
             const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
             req.session.access_token = token
-            console.log(token)
             res.redirect('/')
         }
         else if (user.active === 'false') {
-            const token = await getTokenVerifyAuthStatus(user.id)
-            let verify = null
-            try{
-                verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-            }
-            catch{
-                //token het han, can phai send mail lai
-                return res.status(401).json({ error: 'Your login has been expired. Please contact to admin' });
-            }
+            // const token = await getTokenVerifyAuthStatus(user.id)
+            // let verify = null
+            // try{
+            //     verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+            // }
+            // catch{
+            //     //token het han, can phai send mail lai
+            //     return res.status(401).json({ error: 'Your login has been expired. Please contact to admin' });
+            // }
 
-            if (verify){
-                changeUserActiveStatus(user.id)
-                const payload = {
-                    email: user.email,
-                    username: user.fullname,
-                    permission: user.permission
-                }
-                const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-                req.session.access_token = token
-                console.log(token)
-                res.redirect('/')
-            }
+            // if (verify){
+            //     changeUserActiveStatus(user.id)
+            //     const payload = {
+            //         email: user.email,
+            //         username: user.fullname,
+            //         permission: user.permission
+            //     }
+            //     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+            //     req.session.access_token = token
+            //     console.log(token)
+            const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
+            req.session.access_token = token
+            res.redirect('/change-password')
         }
     }
     else {
@@ -116,30 +119,59 @@ router.post('/register', adminpermission, async (req, res) => {
     res.redirect('/login')
 })
 
-// router.get('/verify', (req, res) => {
-//     const { token } = req.query;
-//     if (!token) {
-//         res.redirect('/login')
-//     }
+router.get('/change-password', logincheck, async (req, res) => {
+    const token = req.session.access_token
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    const user = await getUser(decoded.email)
+    let isnew = 0
+    if (user.active === 'false') {
+        isnew = 1
+    }
+    res.render('change_password', { isnew })
+})
 
-//     let verify = null;
-//     try {
-//         verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-//     }
-//     catch {
-//         return res.status(400).json({ error: 'Token expire' });
-//     }
-//     // Find the user in the database based on the verification token
-//     // const verify = verifyAuthStatus(token)
+router.post('/change-password', logincheck, async (req,res) =>{
+    const token = req.session.access_token
+    let decoded = null
+    try{
+        decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    }
+    catch(err){
+        console.log(err)
+        res.redirect('/login')
+    }
+    const user = await getUser(decoded.email)
+    if (user.active === 'true'){
+        const {pswcurrent} = req.body
 
-//     if (!verify) {
-//         return res.status(400).json({ error: 'Invalid verification token' });
-//     }
+        const user = await authUserLogin(user.fullname,pswcurrent)
+        if (!user){
+            res.redirect('/change-password')
+        }
+    }
 
-//     // Mark the user as verified
-//     // user.verified = true;
+    const {psw,pswrepeat} = req.body
 
-//     res.json({ message: 'Email verified successfully' });
-// });
+    if (psw === pswrepeat){
+        const usernewpassword = await changeUserPassword(decoded.email,psw)
+
+        if (usernewpassword){
+            console.log(usernewpassword)
+            if (user.active === 'false'){
+                await changeUserActiveStatus(user.id)
+            }
+        }
+
+        req.session.destroy()
+
+        res.redirect('/login')
+    }
+})
+
+router.get('/logout',logincheck, (req,res) =>{
+    req.session.destroy()
+
+    res.redirect('/login')
+})
 
 module.exports = router;

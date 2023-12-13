@@ -91,6 +91,17 @@ const changeUserActiveStatus = async (id) =>{
 const createUser = async (fullname, email, password) => {
     User.sync()
 
+    try{
+        const user = await User.destroy({
+            where:{
+                email: email
+            }
+        })
+    }
+    catch{
+        
+    }
+
     const hashed = await bcrypt.hash(password, 10)
 
     try {
@@ -136,4 +147,57 @@ const authUserLogin = async (username, password) => {
     }
 }
 
-module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus }
+const getUser = async (email) => {
+    User.sync()
+
+    try{
+        var user = await User.findOne({
+            where:{
+                email : email
+            }
+        })
+
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const changeUserPassword = async (email, password) =>{
+    User.sync()
+
+    const hashed = await bcrypt.hash(password, 10)
+    
+    try{
+        var user = await User.update({
+            password: hashed
+        },
+        {
+            where:{
+                email: email
+            },
+            returnning: true
+        })
+
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+    
+}
+
+module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword }

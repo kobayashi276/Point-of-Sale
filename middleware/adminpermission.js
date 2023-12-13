@@ -3,8 +3,6 @@ require('dotenv/config')
 
 const SECRET_KEY = process.env.ACCESS_TOKEN_SECRET;
 
-console.log(SECRET_KEY)
-
 const authenticate = (req, res, next) => {
     const token = req.session.access_token
 
