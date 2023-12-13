@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { createUser, authUserLogin, getTokenVerifyAuthStatus, createAuthStatus, changeUserActiveStatus, getUser, changeUserPassword } = require('../database/database')
+const { createUser, authUserLogin, changeUserActiveStatus, getUser, changeUserPassword } = require('../database/database')
 const jwt = require('jsonwebtoken');
 const adminpermission = require('../middleware/adminpermission')
 const logincheck = require('../middleware/logincheck')
@@ -49,26 +49,6 @@ router.post('/login',logoutcheck, async (req, res) => {
             res.redirect('/')
         }
         else if (user.active === 'false') {
-            // const token = await getTokenVerifyAuthStatus(user.id)
-            // let verify = null
-            // try{
-            //     verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-            // }
-            // catch{
-            //     //token het han, can phai send mail lai
-            //     return res.status(401).json({ error: 'Your login has been expired. Please contact to admin' });
-            // }
-
-            // if (verify){
-            //     changeUserActiveStatus(user.id)
-            //     const payload = {
-            //         email: user.email,
-            //         username: user.fullname,
-            //         permission: user.permission
-            //     }
-            //     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-            //     req.session.access_token = token
-            //     console.log(token)
             const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
             req.session.access_token = token
             res.redirect('/change-password')
@@ -110,7 +90,7 @@ router.post('/register', adminpermission, async (req, res) => {
 
             if (user) {
                 console.log(user)
-                await createAuthStatus(user.id, token)
+                // await createAuthStatus(user.id, token)
             }
 
             console.log('Verification email sent')
