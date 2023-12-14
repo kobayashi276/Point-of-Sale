@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
+
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar bg-dark">
+            <ul class="list-unstyled components">
+                <li class="active"><a href="#">Dashboard</a></li>
+                <li><a href="./shop.html">Shop</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Customers</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="./login.html">Logout</a></li>
+            </ul>
+        </nav>
+
+        <div class="page-content">
+            <h2 class="dashboard-title">Dashboard</h2>
+            <!-- Stats Widgets -->
+            <div class="stats slide-in-left">
+                <!-- Total Orders Today Widget -->
+                <div class="card stats-card slide-in-left ">
+                    <i class="bi bi-basket"></i>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total number of orders today</span>
+                        <span class="info-box-number">5</span>
+                    </div>
+                </div>
+                <!-- Monthly Revenue Widget -->
+                <div class="card stats-card ">
+                    <i class="bi bi-currency-exchange"></i>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Monthly Revenue</span>
+                        <span class="info-box-number">108,767,000 đ</span>
+                    </div>
+                </div>
+                <!-- Daily Revenue Widget -->
+                <div class="card stats-card">
+                    <i class="bi bi-receipt"></i>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Daily Revenue</span>
+                        <span class="info-box-number">108,767,000 đ</span>
+                    </div>
+                </div>
+                <!-- Number of Products Sold Today Widget -->
+                <div class="card stats-card">
+                    <i class="bi bi-bag-check"></i>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Number of products sold today</span>
+                        <span class="info-box-number">17</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+
+            <!-- Bestselling Product Table -->
+            <div class="card bestselling-products">
+                <div class="card-header">Bestselling Product</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Giày đỏ máy tính</td>
+                            <td>13</td>
+                            <td>2,347,000 đ</td>
+                        </tr>
+                        <tr>
+                            <td>iPhone 15 Pro Max</td>
+                            <td>3</td>
+                            <td>104,570,000 đ</td>
+                        </tr>
+                        <tr>
+                            <td>Cáp sạc Type C</td>
+                            <td>1</td>
+                            <td>300,000 đ</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Top Seller List -->
+            <div class="spacer"></div>
+
+            <div class="card top-seller">
+                <div class="card-header">Top Seller</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">House Storm <span class="float-right">69,980,000 đ</span></li>
+                    <li class="list-group-item">TechHut <span class="float-right">38,787,000 đ</span></li>
+                    <!-- Add more items as needed -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
