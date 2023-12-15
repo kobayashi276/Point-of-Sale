@@ -2,8 +2,10 @@ const { Sequelize } = require('sequelize')
 const userModel = require('./model/user')
 const authStatusModel = require('./model/authstatus')
 const productModel = require('./model/product')
+const orderModel = require('./model/order')
+const customerModel = require('./model/customer')
+const productOrderModel = require('./model/productorder')
 const bcrypt = require('bcrypt')
-const { use } = require('../controller/user')
 require('dotenv/config')
 
 const sequelize = new Sequelize({
@@ -17,6 +19,12 @@ const sequelize = new Sequelize({
 const User = userModel(sequelize);
 const AuthStatus = authStatusModel(sequelize);
 const Product = productModel(sequelize)
+const Order = orderModel(sequelize)
+const Customer = customerModel(sequelize)
+const ProductOrder = productOrderModel(sequelize)
+
+Product.belongsToMany(Order, { through: ProductOrder });
+Order.belongsToMany(Product, { through: ProductOrder });
 
 sequelize.sync()
 
@@ -312,6 +320,8 @@ const unblockUser = async (email) => {
         return null
     }
 }
+
+// const deleteProduct = async (barcode)
 
 
 (async () => {
