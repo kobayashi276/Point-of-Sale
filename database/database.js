@@ -321,7 +321,95 @@ const unblockUser = async (email) => {
     }
 }
 
-// const deleteProduct = async (barcode)
+const addProduct = async (barcode,name,importprice,retailprice,category) => {
+    Product.sync()
+
+    try{
+        const product = Product.create({
+            barcode: barcode,
+            name: name,
+            importprice: importprice,
+            retailprice: retailprice,
+            category: category
+        })
+
+        if (product){
+            return product
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        return null
+    }
+}
+
+const deleteProduct = async (barcode) => {
+    Product.sync()
+    ProductOrder.sync()
+
+    try{
+        const productorder = await ProductOrder.findAll({
+            where:{
+                ProductBarcode: barcode
+            }
+        })
+
+        if (productorder.length===0){
+            try{
+                const product = await Product.destroy({
+                    where:{
+                        barcode: barcode
+                    }
+                })
+
+                if (product){
+                    return product
+                }
+                else{
+                    return null
+                }
+            }
+            catch(err){
+                console.log(err)
+                return null
+            }
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
+    Product.sync()
+
+    try{
+        const product = await Product.update({
+            name: name,
+            importprice: importprice,
+            retailprice: retailprice,
+            quantity: quantity,
+        },
+        {
+            where:{
+                barcode: barcode
+            }
+        })
+
+        if (product){
+            return product
+        }
+        else{
+            return null
+        }
+    }
+    catch{
+        return null
+    }
+}
 
 
 (async () => {
@@ -380,4 +468,4 @@ const unblockUser = async (email) => {
     }
 })();
 
-module.exports = { lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
