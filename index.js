@@ -3,9 +3,11 @@ const app = express()
 const bodyParser = require('body-parser')
 const session = require('express-session');
 const logincheck = require('./middleware/logincheck')
+const adminpermission = require('./middleware/adminpermission')
 require('dotenv/config')
 
 const user = require('./controller/user')
+const admin = require('./controller/admin')
 
 app.use(session({
     secret: process.env.ACCESS_TOKEN_SECRET, // You should set a secret to sign the session ID cookie
@@ -14,13 +16,17 @@ app.use(session({
 }));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
+app.use(express.static(__dirname + '/views/css'))
+app.use(express.static(__dirname + '/views/img'))
 app.use('/', user)
+app.use('/admin',admin)
 app.set('view engine', 'ejs')
+
 
 app.get('/', logincheck, (req, res) => {
     res.send('index')
 })
+
 
 app.listen(3000, () => {
     console.log('server run')

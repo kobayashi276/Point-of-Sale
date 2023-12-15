@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <link rel="stylesheet" href="/admin.css">
+    <!-- Custom CSS for animations and layout -->
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar bg-dark">
+            <div class="welcome-page">
+                <p>Welcome to administrator</p>
+            </div>
+            <ul class="list-unstyled components">
+                <!-- class="active-nav" -->
+                <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
+                <li onclick="listPageContent('product')" class="active"><span><i
+                            class="fa-solid fa-bag-shopping"></i>Products</span></li>
+                <li onclick="listPageContent('order')"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
+                <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
+                <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
+                </li>
+                <li><a href="/lo"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+        </nav>
+
+
+
+
+        <!-- Page product Content -->
+        <div class="page-content product-page ">
+            <h2>Product List</h2>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Import Price</th>
+                        <th scope="col">Retail Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Multiple rows of product data -->
+                    <tr class="table-animate">
+                        <th scope="row">1</th>
+                        <td>1209384750293</td>
+                        <td>iPhone 15 Pro Max</td>
+                        <td>30,599,000 đ</td>
+                        <td>34,990,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows with different products as needed -->
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Page list of seller Content -->
+        <div class="page-content seller-page disable-page">
+            <h2>Seller List</h2>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Active status</th>
+                        <th scope="col  ">Avatar</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach((u,index) => { %>
+                        <tr class="table-animate">
+                            <th scope="row"><%= index+1 %></th>
+                            <td><%= u.fullname %></td>
+                            <td><%= u.email %></td>
+                            <td><%= u.active %></td>
+                            <td><img src="iphone_thumbnail.jpg" alt="/banner1.jpg" style="width: 50px; height: auto;"></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">Resend verification email</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">Lock</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm">Detail</button>
+                            </td>
+                        </tr>
+                    <%}) %>
+                    <!-- Multiple rows of product data -->
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+
+
+
+        <!-- Page list of orders Content -->
+        <div class="page-content orders-page disable-page">
+            <h2>Orders List</h2>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Import Price</th>
+                        <th scope="col  ">Retail Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Multiple rows of product data -->
+                    <tr class="table-animate">
+                        <th scope="row">1</th>
+                        <td>1209384750293</td>
+                        <td>iPhone 15 Pro Max</td>
+                        <td>30,599,000 đ</td>
+                        <td>34,990,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows with different products as needed -->
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Page report -->
+        <div class="page-content statistic-page disable-page">
+            <h2>Report</h2>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Import Price</th>
+                        <th scope="col  ">Retail Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Multiple rows of product data -->
+                    <tr class="table-animate">
+                        <th scope="row">1</th>
+                        <td>1209384750293</td>
+                        <td>iPhone 15 Pro Max</td>
+                        <td>30,599,000 đ</td>
+                        <td>34,990,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows with different products as needed -->
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+                    <tr class="table-animate">
+                        <th scope="row">2</th>
+                        <td>9328475010293</td>
+                        <td>Samsung Galaxy S22</td>
+                        <td>22,500,000 đ</td>
+                        <td>27,000,000 đ</td>
+                        <td>Phone</td>
+                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm">Edit</button>
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+  
+</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function listPageContent(pageType) {
+            let product = document.querySelector('.product-page');
+            let order = document.querySelector('.orders-page');
+            let seller = document.querySelector('.seller-page');
+            let statistic = document.querySelector('.statistic-page');
+
+            if (pageType === 'product') {
+                product.classList.remove("disable-page");
+                order.classList.add("disable-page");
+                seller.classList.add("disable-page");
+                statistic.classList.add("disable-page");
+
+            }
+            if (pageType === 'order') {
+                product.classList.add("disable-page");
+                order.classList.remove("disable-page");
+                seller.classList.add("disable-page");
+                statistic.classList.add("disable-page");
+
+            }
+            if (pageType === 'seller') {
+                product.classList.add("disable-page");
+                order.classList.add("disable-page");
+                seller.classList.remove("disable-page");
+                statistic.classList.add("disable-page");
+
+            }
+            if (pageType === 'statistic') {
+                product.classList.add("disable-page");
+                order.classList.add("disable-page");
+                seller.classList.add("disable-page");
+                statistic.classList.remove("disable-page");
+            }
+        }
+
+
+    </script>  
+</html>

@@ -170,6 +170,29 @@ const getUser = async (email) => {
     }
 }
 
+const getAllUser = async () =>{
+    User.sync()
+
+    try{
+        var user = await User.findAll({
+            where:{
+                permission: 'user'
+            }
+        })
+
+        if (user){
+            return user;
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
 const changeUserPassword = async (email, password) => {
     User.sync()
 
@@ -200,4 +223,4 @@ const changeUserPassword = async (email, password) => {
 
 }
 
-module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword }
+module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser }
