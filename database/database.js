@@ -3,6 +3,7 @@ const userModel = require('./model/user')
 const authStatusModel = require('./model/authstatus')
 const productModel = require('./model/product')
 const bcrypt = require('bcrypt')
+const { use } = require('../controller/user')
 require('dotenv/config')
 
 const sequelize = new Sequelize({
@@ -24,6 +25,29 @@ const getAllProduct = async () => {
 
     try{
         const product = await Product.findAll()
+        if (product){
+            return product
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const getProduct = async (barcode) =>{
+    Product.sync()
+
+    try{
+        const product = await Product.findOne({
+            where:{
+                barcode: barcode
+            }
+        })
+
         if (product){
             return product
         }
@@ -116,7 +140,8 @@ const createUser = async (fullname, email, password) => {
             phone: null,
             country: null,
             permission: 'seller',
-            active: "false"
+            active: "false",
+            lock: 'false'
         })
 
         return newUser
@@ -234,6 +259,61 @@ const changeUserPassword = async (email, password) => {
 
 }
 
+const lockUser = async (email) => {
+    User.sync()
+
+    try{
+        const user = await User.update({
+            lock: 'true'
+        },
+        {
+            where:{
+                email: email
+            },
+            returnning: true
+        })
+
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const unblockUser = async (email) => {
+    User.sync()
+
+    try{
+        const user = await User.update({
+            lock: 'false'
+        },
+        {
+            where:{
+                email: email
+            },
+            returnning: true
+        })
+
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+
 (async () => {
     try {
         const adminpassword = await bcrypt.hash('admin', 10)
@@ -244,7 +324,8 @@ const changeUserPassword = async (email, password) => {
             phone: null,
             country: null,
             permission: 'admin',
-            active: "true"
+            active: "true",
+            lock: "false"
         });
     } catch (error) {
     }
@@ -289,4 +370,4 @@ const changeUserPassword = async (email, password) => {
     }
 })();
 
-module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct }
+module.exports = { lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }

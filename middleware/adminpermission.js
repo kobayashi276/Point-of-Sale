@@ -10,7 +10,8 @@ const authenticate = (req, res, next) => {
 
 
     if (!token) {
-        return res.status(401).json({ error: 'Access denied. No token provided.' });
+        res.redirect('/login')
+        return
     }
 
     try {
@@ -20,13 +21,15 @@ const authenticate = (req, res, next) => {
         }
         catch{
             res.redirect('/login')
+            return
         }
         if (decoded.permission==='admin'){
             req.user = decoded;
             next();
         }
         else{
-            return res.status(401).json({ error: 'Access denied. No permisison.' });
+            res.redirect('/login')
+            return
         }
     } catch (error) {
         console.error(error);
