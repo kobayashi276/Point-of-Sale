@@ -21,9 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views/css'))
 app.use(express.static(__dirname + '/views/img'))
+app.use(express.static(__dirname + '/views/js'))
 app.use('/', user)
-app.use('/admin',adminpermission,admin)
-app.use('/api',api)
+app.use('/admin', adminpermission, admin)
+app.use('/api', api)
 app.set('view engine', 'ejs')
 
 

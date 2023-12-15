@@ -32,7 +32,7 @@ router.get('/login', logoutcheck, (req, res) => {
 router.post('/login', logoutcheck, async (req, res) => {
     const { username, psw } = req.body
 
-    console.log(username)
+    // console.log(username)
 
     const user = await authUserLogin(username, psw)
 

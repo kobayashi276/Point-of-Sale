@@ -32,7 +32,7 @@
                 <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
                 <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
-                <li><a href="./login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                <li><a href="/login"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
 
@@ -93,7 +93,12 @@
 
         <!-- Page list of seller Content -->
         <div class="page-content seller-page disable-page">
-            <h2>Seller List</h2>
+            <div style="display: flex;">
+                <h2>Seller List</h2>
+                <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
+                    class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registerseller">Add New
+                    Seller</button>
+            </div>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -101,7 +106,7 @@
                         <th scope="col">Username</th>
                         <th scope="col">Email</th>
                         <th scope="col">Active status</th>
-                        <th scope="col">Avatar</th>
+                        <th scope="col">Lock status</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -122,26 +127,42 @@
                             <td>
                                 <%= u.active %>
                             </td>
-                            <td><img src="iphone_thumbnail.jpg" alt="/banner1.jpg" style="width: 50px; height: auto;">
-                            </td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm lock"
-                                    data-email="tanphuoc@gmail.com" data-toggle="modal" data-target="#resendEmail">
+                                <%if(u.lock=='true'){%>
+                                    <i class="fa-solid fa-lock"></i>
+                                    <%}else{%>
+                                        <i class="fa-solid fa-lock-open"></i>
+                                        <% } %>
+                            </td>
+
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm lock" data-email="<%= u.email %>"
+                                    data-toggle="modal" data-target="#resendEmail">
                                     Resend verification
                                 </button>
 
-                                <button type="button" class="btn btn-danger btn-sm lock" data-email=<%= u.email %>
-                                    data-toggle="modal" data-target="#lockseller">
-                                    Lock
-                                </button>
-                                <button type="button" class="btn btn-warning btn-sm delete"
-                                    data-email="tanphuoc@gmail.com" data-toggle="modal" data-target="#detailseller">
-                                    Detail
-                                </button>
+                                <% if( u.lock=='false' ){ %>
+                                    <button onclick="lock('<%= u.email %>')" type="button"
+                                        class="btn btn-danger btn-sm lock" data-email=<%=u.email %>
+                                        data-toggle="modal" data-target="#lockseller">
+                                        Lock
+                                    </button>
+                                    <% } else{ %>
+                                        <button onclick="unlock('<%= u.email %>')" type="button"
+                                            class="btn btn-danger btn-sm lock" data-email=<%=u.email %>
+                                            data-toggle="modal" data-target="#unlockseller">
+                                            UnLock
+                                        </button>
+                                        <% } %>
+
+                                            <button type="button" class="btn btn-warning btn-sm delete"
+                                                data-email="<%= u.email %>" data-toggle="modal"
+                                                data-target="#detailseller">
+                                                Detail
+                                            </button>
                             </td>
                         </tr>
                         <%}) %>
-                            <!-- Multiple rows of product data -->
 
 
                 </tbody>
@@ -289,7 +310,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Lock Confirm</h4>
+                    <h4 class="modal-title">verification</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -300,25 +321,76 @@
         </div>
     </div>
 
-    <!-- lock user -->
-    <div id="lockseller" class="modal fade" style="top: 30%">
-        <div class="modal-dialog">
+    <!-- create new seller -->
+    <div class="modal fade" id="registerseller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Lock Confirm</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Seller</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to lock this seller?</p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-danger deleteAllDetail" value="Delete">
+                    <form method="post" action="http://localhost:3000/register">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input class="form-control" type="text" placeholder="Enter Email" name="email" id="email"
+                                required>
+                        </div>
+                        <button onclick="resetFillInput()" type="button" class="btn btn-primary"
+                            data-dismiss="modal">Register</button>
+                    </form>
                 </div>
 
             </div>
         </div>
+
     </div>
+
+    <!-- register seller
+    <div id="registerseller" class="modal fade" style="top: 10%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Create Seller</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <img src="/banner1.jpg" style="width: 120px; height: auto;">
+
+                        <div class="modal-body">
+                            <div class="container">
+                                <h1>Register</h1>
+                                <p>Please fill in this form to create an account.</p>
+                                <hr>
+
+                                <label for="email"><b>Email</b></label>
+                                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                                <hr>
+                                <button type="submit" class="registerbtn">Register</button>
+                            </div>
+                        </div>
+
+
+                        <form method="post" action="http://localhost:3000/register">
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+
+
 
     <!-- detail user -->
     <div id="detailseller" class="modal fade" style="top: 30%">
@@ -329,6 +401,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
+                    <div>
+                        <img src="/banner1.jpg" style="width: 120px; height: auto;">
+                    </div>
                     <div style="display: flex; align-items: center;">
                         <p style="margin-right: 5px;"><b>Full Name:</b></p>
                         <p class="name-seller">Pham Phuoc Tan</p>
@@ -337,58 +412,37 @@
                         <p style="margin-right: 5px;"><b>Email:</b></p>
                         <p class="email-seller">tanphuoc@gmail.com</p>
                     </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Phone:</b></p>
+                        <p class="phone-seller">123456789</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Country:</b></p>
+                        <p class="country-seller">HCM</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Create at:</b></p>
+                        <p class="createAt-seller">15-02-2023</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Total Order Check Out:</b></p>
+                        <p class="total-order-seller">20</p>
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/admin.js"></script>
+
 
 </body>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/js/admin.js"></script>
 
-<script>
-    function listPageContent(pageType) {
-        let product = document.querySelector('.product-page');
-        let order = document.querySelector('.orders-page');
-        let seller = document.querySelector('.seller-page');
-        let statistic = document.querySelector('.statistic-page');
-
-        if (pageType === 'product') {
-            product.classList.remove("disable-page");
-            order.classList.add("disable-page");
-            seller.classList.add("disable-page");
-            statistic.classList.add("disable-page");
-
-        }
-        if (pageType === 'order') {
-            product.classList.add("disable-page");
-            order.classList.remove("disable-page");
-            seller.classList.add("disable-page");
-            statistic.classList.add("disable-page");
-
-        }
-        if (pageType === 'seller') {
-            product.classList.add("disable-page");
-            order.classList.add("disable-page");
-            seller.classList.remove("disable-page");
-            statistic.classList.add("disable-page");
-
-        }
-        if (pageType === 'statistic') {
-            product.classList.add("disable-page");
-            order.classList.add("disable-page");
-            seller.classList.add("disable-page");
-            statistic.classList.remove("disable-page");
-        }
-    }
-
-
-</script>
 
 </html>
