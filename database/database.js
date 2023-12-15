@@ -15,22 +15,6 @@ const sequelize = new Sequelize({
 const User = userModel(sequelize);
 const AuthStatus = authStatusModel(sequelize);
 
-(async () => {
-    try {
-        const adminpassword = await bcrypt.hash('admin', 10)
-        const adminUser = await User.create({
-            fullname: 'admin',
-            email: 'admin@gmail.com',
-            password: adminpassword,
-            permission: 'admin',
-            active: "true"
-        });
-        // Continue with code after the User creation
-    } catch (error) {
-        // Handle errors here
-    }
-})();
-
 sequelize.sync()
 
 const createAuthStatus = async (id, token) => {
@@ -109,7 +93,9 @@ const createUser = async (fullname, email, password) => {
             fullname: fullname,
             email: email,
             password: hashed,
-            permission: 'user',
+            phone: null,
+            country: null,
+            permission: 'seller',
             active: "false"
         })
 
@@ -130,16 +116,21 @@ const authUserLogin = async (username, password) => {
             }
         })
 
-        user = user.toJSON()
+        if (user) {
+            const isvalid = await bcrypt.compare(password, user.password)
 
-        const isvalid = await bcrypt.compare(password, user.password)
-
-        if (isvalid) {
-            return user
+            if (isvalid) {
+                return user
+            }
+            else {
+                return null
+            }
         }
-        else {
+        else{
             return null
         }
+
+
     }
     catch (err) {
         console.log(err)
@@ -170,24 +161,24 @@ const getUser = async (email) => {
     }
 }
 
-const getAllUser = async () =>{
+const getAllUser = async () => {
     User.sync()
 
-    try{
+    try {
         var user = await User.findAll({
-            where:{
-                permission: 'user'
+            where: {
+                permission: 'seller'
             }
         })
 
-        if (user){
+        if (user) {
             return user;
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -222,5 +213,21 @@ const changeUserPassword = async (email, password) => {
     }
 
 }
+
+(async () => {
+    try {
+        const adminpassword = await bcrypt.hash('admin', 10)
+        const adminUser = await User.create({
+            fullname: 'admin',
+            email: 'admin@gmail.com',
+            password: adminpassword,
+            phone: null,
+            country: null,
+            permission: 'admin',
+            active: "true"
+        });
+    } catch (error) {
+    }
+})();
 
 module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser }
