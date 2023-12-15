@@ -12,15 +12,16 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-app.use('/',user)
-app.set('view engine','ejs')
 
-app.get('/',logincheck,(req,res) => {
+app.use('/', user)
+app.set('view engine', 'ejs')
+
+app.get('/', logincheck, (req, res) => {
     res.send('index')
 })
 
-app.listen(3000, () =>{
+app.listen(3000, () => {
     console.log('server run')
 })
