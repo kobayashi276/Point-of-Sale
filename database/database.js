@@ -33,19 +33,19 @@ const AuthStatus = authStatusModel(sequelize);
 
 sequelize.sync()
 
-const createAuthStatus = async (id,token) => {
+const createAuthStatus = async (id, token) => {
     AuthStatus.sync()
 
-    try{
+    try {
         const auth = await AuthStatus.create({
             id: id,
             token: token
         })
-        
+
 
         return auth
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -53,37 +53,37 @@ const createAuthStatus = async (id,token) => {
 
 const getTokenVerifyAuthStatus = async (id) => {
     AuthStatus.sync()
-    try{
+    try {
         const auth = await AuthStatus.findByPk(id)
         await AuthStatus.destroy({
-            where:{
+            where: {
                 id: id
             }
         })
         return auth.token
     }
-    catch{
+    catch {
         return null
     }
 }
 
-const changeUserActiveStatus = async (id) =>{
+const changeUserActiveStatus = async (id) => {
     User.sync()
 
-    try{
+    try {
         const user = await User.update({
             active: 'true'
         },
-        {
-            where:{
-                id: id
-            },
-            returnning: true
-        })
+            {
+                where: {
+                    id: id
+                },
+                returnning: true
+            })
 
         return user
     }
-    catch{
+    catch {
         return null
     }
 }
@@ -91,15 +91,15 @@ const changeUserActiveStatus = async (id) =>{
 const createUser = async (fullname, email, password) => {
     User.sync()
 
-    try{
+    try {
         const user = await User.destroy({
-            where:{
+            where: {
                 email: email
             }
         })
     }
-    catch{
-        
+    catch {
+
     }
 
     const hashed = await bcrypt.hash(password, 10)
@@ -150,54 +150,54 @@ const authUserLogin = async (username, password) => {
 const getUser = async (email) => {
     User.sync()
 
-    try{
+    try {
         var user = await User.findOne({
-            where:{
-                email : email
+            where: {
+                email: email
             }
         })
 
-        if (user){
+        if (user) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
 }
 
-const changeUserPassword = async (email, password) =>{
+const changeUserPassword = async (email, password) => {
     User.sync()
 
     const hashed = await bcrypt.hash(password, 10)
-    
-    try{
+
+    try {
         var user = await User.update({
             password: hashed
         },
-        {
-            where:{
-                email: email
-            },
-            returnning: true
-        })
+            {
+                where: {
+                    email: email
+                },
+                returnning: true
+            })
 
-        if (user){
+        if (user) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
-    
+
 }
 
 module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword }
