@@ -19,3 +19,20 @@ OAUTH_CLIENTID=529794889646-h1h264o9uk2pjtmcqp26urg5bl6g34bd.apps.googleusercont
 OAUTH_CLIENT_SECRET=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
 
 OAUTH_REFRESH_TOKEN=1//040rMvaXyGgKjCgYIARAAGAQSNwF-L9IraSViT9S6WKK3CyI3OmX815amlBg2YSm0ZZ-vJNk7EyaLCW-OpjA4Lvv-OltX7lK_Fb4
+
+#API
+
+- GET localhost:3000/api/user?email=<> Get data from user
+
+- GET localhost:3000/api/product?barcode=<> Get data from product
+
+- POST localhost:3000/api/product?barcode=<>&name=<>&importprice=<>&retailprice=<>&category=<> Add new product
+
+- DELETE localhost:3000/api/product?barcode=<> Delete product if it have no order
+
+- PUT localhost:3000/api/product?barcode=<>&name=<>&importprice=<>&retailprice=<>&category=<> Update product via barcode
+
+- GET localhost:3000/api/lock?email=<> Lock user via email
+
+- GET localhost:3000/api/unblock?email=<> Unblock user via email
+

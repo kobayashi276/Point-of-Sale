@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getUser, getProduct, unblockUser, lockUser } = require('../database/database')
+const {addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct } = require('../database/database')
 const adminpermission = require('../middleware/adminpermission')
 
 router.get('/user', async (req,res) => {
@@ -41,6 +41,48 @@ router.get('/unblock',adminpermission, async (req,res) => {
         res.json(user)
     }
     else{
+        res.json(null)
+    }
+})
+
+router.post('/product', async (req,res) => {
+    const {barcode,name,importprice,retailprice,category} = req.query
+    try{
+        const product = await addProduct(barcode,name,importprice,retailprice,category)
+
+        if (product){
+            res.json(product)
+        }
+        else{
+            res.json(null)
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.json(null)
+    }
+})
+
+router.delete('/product', async (req,res) =>{
+    const {barcode} = req.query
+    try{
+        const product = await deleteProduct(barcode)
+        res.json(product)
+    }
+    catch(err){
+        console.log(err)
+        res.json(null)
+    }
+})
+
+router.put('/product', async (req,res) => {
+    const {barcode,name,importprice,retailprice,category} = req.query
+    try{
+        const product = await updateProduct(barcode,name,importprice,retailprice,category)
+        res.json(product)
+    }
+    catch(err){
+        console.log(err)
         res.json(null)
     }
 })
