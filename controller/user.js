@@ -25,36 +25,39 @@ const transporter = nodemailer.createTransport({
 });
 
 
-router.get('/login',logoutcheck, (req, res) => {
+router.get('/login', logoutcheck, (req, res) => {
     res.render('login')
 })
 
-router.post('/login',logoutcheck, async (req, res) => {
+router.post('/login', logoutcheck, async (req, res) => {
     const { username, psw } = req.body
 
     console.log(username)
 
     const user = await authUserLogin(username, psw)
-    const payload = {
-        email: user.email,
-        username: user.fullname,
-        permission: user.permission
-    }
-
 
     if (user) {
-        if (user.active === 'true') {
-            const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-            req.session.access_token = token
-            res.redirect('/')
+        if (user.active === 'false') {
+            res.send('Please login via the link was given from the email!')
         }
-        else if (user.active === 'false') {
-            const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
-            req.session.access_token = token
-            res.redirect('/change-password')
+        else {
+            const payload = {
+                email: user.email,
+                username: user.fullname,
+                permission: user.permission
+            }
+            if (user.active === 'true') {
+                const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+                req.session.access_token = token
+                res.redirect('/')
+            }
+            else {
+                res.redirect('/login')
+            }
         }
     }
     else {
+        // req.flash('success','Wrong username or password!')
         res.redirect('/login')
     }
 })
@@ -74,7 +77,7 @@ router.post('/register', adminpermission, async (req, res) => {
     }
     const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
     console.log(token)
-    const loginLink = `${req.protocol}://${req.get('host')}/login`;
+    const loginLink = `${req.protocol}://${req.get('host')}/firstlogin?token=${token}`;
     const mailOptions = {
         from: 'yuokawaii84@gmail.com',
         to: email,
@@ -99,6 +102,22 @@ router.post('/register', adminpermission, async (req, res) => {
     res.redirect('/login')
 })
 
+router.get('/firstlogin', async (req, res) => {
+    const { token } = req.query
+    if (!token) {
+        res.redirect('/login')
+    }
+    let verify = null
+    try {
+        verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        req.session.access_token = token
+        res.redirect('/change-password')
+    }
+    catch {
+        res.send('Your link has been expired, please contract to the admin to give a new link')
+    }
+})
+
 router.get('/change-password', logincheck, async (req, res) => {
     const token = req.session.access_token
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
@@ -110,34 +129,34 @@ router.get('/change-password', logincheck, async (req, res) => {
     res.render('change_password', { isnew })
 })
 
-router.post('/change-password', logincheck, async (req,res) =>{
+router.post('/change-password', logincheck, async (req, res) => {
     const token = req.session.access_token
     let decoded = null
-    try{
+    try {
         decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         res.redirect('/login')
     }
     const user = await getUser(decoded.email)
-    if (user.active === 'true'){
-        const {pswcurrent} = req.body
+    if (user.active === 'true') {
+        const { pswcurrent } = req.body
 
-        const user = await authUserLogin(user.fullname,pswcurrent)
-        if (!user){
+        const user = await authUserLogin(user.fullname, pswcurrent)
+        if (!user) {
             res.redirect('/change-password')
         }
     }
 
-    const {psw,pswrepeat} = req.body
+    const { psw, pswrepeat } = req.body
 
-    if (psw === pswrepeat){
-        const usernewpassword = await changeUserPassword(decoded.email,psw)
+    if (psw === pswrepeat) {
+        const usernewpassword = await changeUserPassword(decoded.email, psw)
 
-        if (usernewpassword){
+        if (usernewpassword) {
             console.log(usernewpassword)
-            if (user.active === 'false'){
+            if (user.active === 'false') {
                 await changeUserActiveStatus(user.id)
             }
         }
@@ -148,7 +167,7 @@ router.post('/change-password', logincheck, async (req,res) =>{
     }
 })
 
-router.get('/logout',logincheck, (req,res) =>{
+router.get('/logout', logincheck, (req, res) => {
     req.session.destroy()
 
     res.redirect('/login')

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session');
 const logincheck = require('./middleware/logincheck')
 const adminpermission = require('./middleware/adminpermission')
+const flash = require('express-flash')
 require('dotenv/config')
 
 const user = require('./controller/user')
@@ -14,6 +15,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }));
+app.use(flash())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views/css'))
