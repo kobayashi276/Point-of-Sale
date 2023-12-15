@@ -5,6 +5,7 @@ const authenticate = (req, res, next) => {
 
     if (!token) {
         res.redirect('/login');
+        return
     }
     else{
         next()

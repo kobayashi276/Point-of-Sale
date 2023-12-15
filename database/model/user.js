@@ -38,6 +38,10 @@ module.exports = (sequelize) => {
     active: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    lock: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   });
   return User;

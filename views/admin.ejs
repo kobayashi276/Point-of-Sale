@@ -32,10 +32,9 @@
                 <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
                 <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
-                <li><a href="/lo"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                <li><a href="./login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
-
 
 
 
@@ -57,23 +56,35 @@
                 </thead>
                 <tbody>
                     <!-- Multiple rows of product data -->
-                    <% products.forEach((p,index) => { %>
+                    <% products.forEach((p,index)=> { %>
                         <tr class="table-animate">
-                            <th scope="row"><%= index+1 %></th>
-                            <td><%= p.barcode %></td>
-                            <td><%= p.name %></td>
-                            <td><%= p.importprice %></td>
-                            <td><%= p.retailprice %></td>
-                            <td><%= p.category %></td>
+                            <th scope="row">
+                                <%= index+1 %>
+                            </th>
+                            <td>
+                                <%= p.barcode %>
+                            </td>
+                            <td>
+                                <%= p.name %>
+                            </td>
+                            <td>
+                                <%= p.importprice %>
+                            </td>
+                            <td>
+                                <%= p.retailprice %>
+                            </td>
+                            <td>
+                                <%= p.category %>
+                            </td>
                             <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
                             <td>
                                 <button class="btn btn-primary btn-sm">Edit</button>
                                 <button class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
-                    <% }) %>
-                    
-                    
+                        <% }) %>
+
+
 
                 </tbody>
             </table>
@@ -97,30 +108,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% users.forEach((u,index) => { %>
+                    <% users.forEach((u,index)=> { %>
                         <tr class="table-animate">
-                            <th scope="row"><%= index+1 %></th>
-                            <td><%= u.fullname %></td>
-                            <td><%= u.email %></td>
-                            <td><%= u.active %></td>
-                            <td><img src="iphone_thumbnail.jpg" alt="/banner1.jpg" style="width: 50px; height: auto;"></td>
+                            <th scope="row">
+                                <%= index+1 %>
+                            </th>
                             <td>
-                                <button class="btn btn-primary btn-sm">Resend verification email</button>
+                                <%= u.fullname %>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm">Lock</button>
+                                <%= u.email %>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm">Detail</button>
+                                <%= u.active %>
+                            </td>
+                            <td><img src="iphone_thumbnail.jpg" alt="/banner1.jpg" style="width: 50px; height: auto;">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm lock"
+                                    data-email="tanphuoc@gmail.com" data-toggle="modal" data-target="#resendEmail">
+                                    Resend verification
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-sm lock" data-email=<%= u.email %>
+                                    data-toggle="modal" data-target="#lockseller">
+                                    Lock
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm delete"
+                                    data-email="tanphuoc@gmail.com" data-toggle="modal" data-target="#detailseller">
+                                    Detail
+                                </button>
                             </td>
                         </tr>
-                    <%}) %>
-                    <!-- Multiple rows of product data -->
-                    
-                    
+                        <%}) %>
+                            <!-- Multiple rows of product data -->
+
+
                 </tbody>
             </table>
         </div>
+
 
 
 
@@ -256,50 +283,112 @@
         </div>
 
     </div>
-  
+
+    <!-- resened email verify user -->
+    <div id="resendEmail" class="modal fade" style="top: 30%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Lock Confirm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Send successfully</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- lock user -->
+    <div id="lockseller" class="modal fade" style="top: 30%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Lock Confirm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to lock this seller?</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger deleteAllDetail" value="Delete">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- detail user -->
+    <div id="detailseller" class="modal fade" style="top: 30%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail Seller</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Full Name:</b></p>
+                        <p class="name-seller">Pham Phuoc Tan</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Email:</b></p>
+                        <p class="email-seller">tanphuoc@gmail.com</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 </body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/admin.js"></script>
 
-    <script>
-        function listPageContent(pageType) {
-            let product = document.querySelector('.product-page');
-            let order = document.querySelector('.orders-page');
-            let seller = document.querySelector('.seller-page');
-            let statistic = document.querySelector('.statistic-page');
+<script>
+    function listPageContent(pageType) {
+        let product = document.querySelector('.product-page');
+        let order = document.querySelector('.orders-page');
+        let seller = document.querySelector('.seller-page');
+        let statistic = document.querySelector('.statistic-page');
 
-            if (pageType === 'product') {
-                product.classList.remove("disable-page");
-                order.classList.add("disable-page");
-                seller.classList.add("disable-page");
-                statistic.classList.add("disable-page");
+        if (pageType === 'product') {
+            product.classList.remove("disable-page");
+            order.classList.add("disable-page");
+            seller.classList.add("disable-page");
+            statistic.classList.add("disable-page");
 
-            }
-            if (pageType === 'order') {
-                product.classList.add("disable-page");
-                order.classList.remove("disable-page");
-                seller.classList.add("disable-page");
-                statistic.classList.add("disable-page");
-
-            }
-            if (pageType === 'seller') {
-                product.classList.add("disable-page");
-                order.classList.add("disable-page");
-                seller.classList.remove("disable-page");
-                statistic.classList.add("disable-page");
-
-            }
-            if (pageType === 'statistic') {
-                product.classList.add("disable-page");
-                order.classList.add("disable-page");
-                seller.classList.add("disable-page");
-                statistic.classList.remove("disable-page");
-            }
         }
+        if (pageType === 'order') {
+            product.classList.add("disable-page");
+            order.classList.remove("disable-page");
+            seller.classList.add("disable-page");
+            statistic.classList.add("disable-page");
+
+        }
+        if (pageType === 'seller') {
+            product.classList.add("disable-page");
+            order.classList.add("disable-page");
+            seller.classList.remove("disable-page");
+            statistic.classList.add("disable-page");
+
+        }
+        if (pageType === 'statistic') {
+            product.classList.add("disable-page");
+            order.classList.add("disable-page");
+            seller.classList.add("disable-page");
+            statistic.classList.remove("disable-page");
+        }
+    }
 
 
-    </script>  
+</script>
+
 </html>
