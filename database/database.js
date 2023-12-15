@@ -1,6 +1,7 @@
 const { Sequelize } = require('sequelize')
 const userModel = require('./model/user')
 const authStatusModel = require('./model/authstatus')
+const productModel = require('./model/product')
 const bcrypt = require('bcrypt')
 require('dotenv/config')
 
@@ -14,8 +15,27 @@ const sequelize = new Sequelize({
 
 const User = userModel(sequelize);
 const AuthStatus = authStatusModel(sequelize);
+const Product = productModel(sequelize)
 
 sequelize.sync()
+
+const getAllProduct = async () => {
+    Product.sync()
+
+    try{
+        const product = await Product.findAll()
+        if (product){
+            return product
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
 
 const createAuthStatus = async (id, token) => {
     AuthStatus.sync()
@@ -230,4 +250,43 @@ const changeUserPassword = async (email, password) => {
     }
 })();
 
-module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser }
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: '0000001',
+            name: 'Giay',
+            importprice: '999999',
+            retailprice: '9999999',
+            category: 'Clothes'
+        });
+    } catch (error) {
+    }
+})();
+
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: '0000002',
+            name: 'Giay',
+            importprice: '999999',
+            retailprice: '9999999',
+            category: 'Clothes'
+        });
+    } catch (error) {
+    }
+})();
+
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: '0000003',
+            name: 'Giay',
+            importprice: '999999',
+            retailprice: '9999999',
+            category: 'Clothes'
+        });
+    } catch (error) {
+    }
+})();
+
+module.exports = { createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct }
