@@ -1,4 +1,4 @@
-var rootURL = 'http://localhost:3000';
+var rootURL = window.location.origin;
 
 function listPageContent(pageType) {
     let order = document.querySelector('.orders-page');
