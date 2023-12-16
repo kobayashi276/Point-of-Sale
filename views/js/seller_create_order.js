@@ -1,4 +1,4 @@
-var rootURL = 'http://localhost:3000';
+var rootURL = window.location.origin;
 
 const selectedProductIds = new Set();
 

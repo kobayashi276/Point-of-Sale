@@ -1,4 +1,4 @@
-var rootURL = 'http://localhost:3000'; //if you need to go deep after admin, you need to + '/....'
+var rootURL = window.location.origin; //if you need to go deep after admin, you need to + '/....'
 
 
 
