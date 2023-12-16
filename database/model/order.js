@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         },
         price: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         }
     });
     return Order;

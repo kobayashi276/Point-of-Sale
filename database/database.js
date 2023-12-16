@@ -462,14 +462,13 @@ const getAllOrderByEmail = async (email) => {
     }
 }
 
-const createOrder = async (seller,customerphone, price) => {
+const createOrder = async (seller,customerphone) => {
     Order.sync()
 
     try{
         const order = await Order.create({
             seller: seller,
-            customerphone: customerphone,
-            price: price
+            customerphone: customerphone
         })
 
         if (order){

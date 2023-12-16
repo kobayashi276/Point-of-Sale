@@ -29,7 +29,7 @@ app.use(express.static(__dirname + '/views/js'))
 app.use('/', user)
 app.use('/admin', adminpermission, admin)
 app.use('/api', api)
-app.use('/seller', seller)
+app.use('/seller',sellerpermission, seller)
 app.set('view engine', 'ejs')
 
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/login.css">
+    <style>
+        body,
+        html {
+            background: url('/image1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- index.html -->
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Order</title>
+    </head>
+
+    <body>
+        <h1>Create Order</h1>
+        <form id="orderForm">
+            <label for="customerPhone">Customer Phone:</label>
+            <input type="text" id="customerPhone" name="customerPhone" required>
+    
+            <label for="searchBarcode">Search by Barcode:</label>
+            <input type="text" id="searchBarcode" name="searchBarcode" placeholder="Enter barcode" autocomplete="off">
+            <div id="searchResults"></div>
+    
+            <button type="button" onclick="createOrder()">Create Order</button>
+        </form>
+    </body>
+
+    </html>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/seller.js"></script>
+
+</body>
+
+</html>
