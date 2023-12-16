@@ -28,6 +28,8 @@ OAUTH_REFRESH_TOKEN=1//040rMvaXyGgKjCgYIARAAGAQSNwF-L9IraSViT9S6WKK3CyI3OmX815am
 
 - GET localhost:3000/api/product?barcode=<> Get data from product
 
+- GET localhost:3000/api/product Get all data from product
+
 - POST localhost:3000/api/product?barcode=<>&name=<>&importprice=<>&retailprice=<>&category=<> Add new product
 
 - DELETE localhost:3000/api/product?barcode=<> Delete product if it have no order
