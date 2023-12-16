@@ -20,9 +20,14 @@ const authenticate = (req, res, next) => {
             res.redirect('/login')
             return
         }
-        if (decoded.permission==='admin'){
+        if (decoded.permission==='seller'){
             req.user = decoded;
             next();
+        }
+        else if (decoded.permission==='admin'){
+            req.user = decoded
+            res.redirect('/admin')
+            return
         }
         else{
             res.redirect('/login')
