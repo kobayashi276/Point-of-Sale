@@ -12,9 +12,7 @@ router.get('/user', async (req, res) => {
 })
 
 router.get('/addnewproduct', adminpermission, (req, res) => {
-
     res.render('addproduct')
-
 })
 
 router.get('/product', adminpermission, async (req, res) => {
@@ -87,9 +85,7 @@ router.delete('/product', async (req, res) => {
 router.put('/product', async (req, res) => {
     const { barcode } = req.query
     const { name, importprice, retailprice, category } = req.body
-    console.log(barcode)
-    console.log(name)
-    console.log(retailprice)
+    console.log(barcode, name,importprice)
 
     try {
         const product = await updateProduct(barcode, name, importprice, retailprice, category)

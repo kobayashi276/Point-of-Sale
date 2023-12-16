@@ -4,12 +4,14 @@ const bodyParser = require('body-parser')
 const session = require('express-session');
 const logincheck = require('./middleware/logincheck')
 const adminpermission = require('./middleware/adminpermission')
+const sellerpermission = require('./middleware/sellerpermission')
 const flash = require('express-flash')
 require('dotenv/config')
 
 const user = require('./controller/user')
 const admin = require('./controller/admin')
 const api = require('./controller/api')
+
 
 app.use(session({
     secret: process.env.ACCESS_TOKEN_SECRET, // You should set a secret to sign the session ID cookie
@@ -28,7 +30,7 @@ app.use('/api', api)
 app.set('view engine', 'ejs')
 
 
-app.get('/', logincheck, (req, res) => {
+app.get('/', logincheck, sellerpermission, (req, res) => {
     res.send('index')
 })
 
