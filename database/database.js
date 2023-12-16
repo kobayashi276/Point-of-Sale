@@ -439,6 +439,52 @@ const updateUser = async (email,username,phone,country) => {
     }
 }
 
+const getAllOrderByEmail = async (email) => {
+    Order.sync()
+
+    try{
+        const order = await Order.findAll({
+            where:{
+                seller: email
+            }
+        })
+
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const createOrder = async (seller,customerphone, price) => {
+    Order.sync()
+
+    try{
+        const order = await Order.create({
+            seller: seller,
+            customerphone: customerphone,
+            price: price
+        })
+
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
 
 (async () => {
     try {
@@ -496,4 +542,4 @@ const updateUser = async (email,username,phone,country) => {
     }
 })();
 
-module.exports = {updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }

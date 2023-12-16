@@ -21,158 +21,18 @@
         <!-- Sidebar -->
         <nav class="sidebar bg-dark">
             <div class="welcome-page">
-                <p>Welcome to administrator</p>
+                <p>Welcome to seller</p>
             </div>
             <ul class="list-unstyled components">
                 <!-- class="active-nav" -->
                 <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
-                <li onclick="listPageContent('product')" class="active"><span><i
-                            class="fa-solid fa-bag-shopping"></i>Products</span></li>
                 <li onclick="listPageContent('order')"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
-                <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
                 <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
-
-
-
-        <!-- Page product Content -->
-        <div class="page-content product-page ">
-            <div style="display: flex;">
-                <h2>Products List</h2>
-                <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
-                    class="btn btn-primary btn-sm" onclick="redirectToAddProduct()">Add New Product</button>
-            </div>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Barcode</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Import Price</th>
-                        <th scope="col">Retail Price</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Multiple rows of product data -->
-                    <% products.forEach((p,index)=> { %>
-                        <tr class="table-animate">
-                            <th scope="row">
-                                <%= index+1 %>
-                            </th>
-                            <td>
-                                <%= p.barcode %>
-                            </td>
-                            <td>
-                                <%= p.name %>
-                            </td>
-                            <td>
-                                <%= p.importprice %>
-                            </td>
-                            <td>
-                                <%= p.retailprice %>
-                            </td>
-                            <td>
-                                <%= p.category %>
-                            </td>
-                            <td><img src="/banner1.jpg" style="width: 50px; height: auto;"></td>
-                            <td>
-                                <button style="width: 65px;" type="button"
-                                    class="btn btn-primary btn-sm EditBtnDetailProduct" data-barcode="<%= p.barcode %>"
-                                    data-name="<%= p.name %>" data-import="<%= p.importprice %>"
-                                    data-retail="<%= p.retailprice %>" data-category="<%= p.category %>"
-                                    data-toggle="modal" data-target="#updateproduct">Edit</button>
-
-                                <button class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <% }) %>
-
-
-
-                </tbody>
-            </table>
-        </div>
-
-
-        <!-- Page list of seller Content -->
-        <div class="page-content seller-page disable-page">
-            <div style="display: flex;">
-                <h2>Sellers List</h2>
-                <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
-                    class="btn btn-primary btn-sm" onclick="redirectToRegisterForm()">Add New Seller</button>
-            </div>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Active status</th>
-                        <th scope="col">Lock status</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% users.forEach((u,index)=> { %>
-                        <tr class="table-animate">
-                            <th scope="row">
-                                <%= index + 1 %>
-                            </th>
-                            <td>
-                                <%= u.fullname %>
-                            </td>
-                            <td>
-                                <%= u.email %>
-                            </td>
-                            <td>
-                                <%= u.active %>
-                            </td>
-                            <td>
-                                <%if(u.lock=='true'){%>
-                                    <i class="fa-solid fa-lock"></i>
-                                    <%}else{%>
-                                        <i class="fa-solid fa-lock-open"></i>
-                                        <% } %>
-                            </td>
-
-                            <td>
-                                <button type="button" class="btn btn-primary btn-sm lock" data-email="<%= u.email %>"
-                                    data-toggle="modal" data-target="#resendEmail">
-                                    Resend verification
-                                </button>
-
-                                <% if( u.lock=='false' ){ %>
-                                    <button style="width: 65px;" onclick="lock('<%= u.email %>')" type="button"
-                                        class="btn btn-danger btn-sm lock" data-email="<%=u.email %>"
-                                        data-toggle="modal" data-target="#lockseller">
-                                        Lock
-                                    </button>
-                                    <% } else{ %>
-                                        <button style="width: 65px;" onclick="unlock('<%= u.email %>')" type="button"
-                                            class="btn btn-danger btn-sm lock" data-email="<%=u.email %>"
-                                            data-toggle=" modal" data-target="#unlockseller">
-                                            UnLock
-                                        </button>
-                                        <% } %>
-                                            <button type="button" class="btn btn-warning btn-sm delete"
-                                                data-email="<%= u.email %>" data-toggle="modal"
-                                                data-target="#detailseller">
-                                                Detail
-                                            </button>
-                            </td>
-                        </tr>
-                        <%}) %>
-                </tbody>
-            </table>
-        </div>
-
-
+       
 
 
         <!-- Page list of orders Content -->
@@ -432,7 +292,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/admin.js"></script>
+    <script src="/seller.js"></script>
 
 
 </body>
