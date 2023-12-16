@@ -154,8 +154,8 @@ router.post('/change-password', logincheck, async (req, res) => {
     if (user.active === 'true') {
         const { pswcurrent } = req.body
 
-        const user = await authUserLogin(user.fullname, pswcurrent)
-        if (!user) {
+        const user1 = await authUserLogin(user.fullname, pswcurrent)
+        if (!user1) {
             res.redirect('/change-password')
         }
     }

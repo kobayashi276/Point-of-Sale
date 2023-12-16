@@ -40,7 +40,7 @@ btnDelete.forEach(btn => {
 
         await fetch(`${rootURL}/api/user?email=${email}`, {
             method: 'get',
-            headers: { 'Contype-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(response => response.json())
             .then(data => {
@@ -91,6 +91,7 @@ btnDelete.forEach(btn => {
     })
 })
 
+//set detail product to dialog update
 let btnEditOnProduct = [...document.querySelectorAll('.EditBtnDetailProduct')];
 btnEditOnProduct.forEach(btn => {
 
@@ -119,7 +120,8 @@ btnEditOnProduct.forEach(btn => {
 
 // submit update 
 let btnUpdateProduct = document.querySelector('.update-product-btn');
-btnUpdateProduct.addEventListener('click', async () => {
+btnUpdateProduct.addEventListener('click', async (e) => {
+    e.preventDefault();
 
     let barcodeInput = document.querySelector('#barcode-dialog').value;
     let nameInput = document.querySelector('#name-dialog').value;
@@ -128,8 +130,8 @@ btnUpdateProduct.addEventListener('click', async () => {
     let categoryInput = document.querySelector('#category-dialog').value;
 
     await fetch(`${rootURL}/api/product?barcode=${barcodeInput}`, {
-        method: 'put',
-        headers: { 'Contype-Type': 'application/json' },
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             name: nameInput,
             importprice: importInput,
@@ -147,16 +149,81 @@ btnUpdateProduct.addEventListener('click', async () => {
             // let tbodyElement = btn.parentElement.parentElement.parentElement;
             // tbodyElement.removeChild(tr);
 
-            if (data == 1) {
+            if (data != null) {
                 document.querySelector('.msg-update').innerText = 'Successfully';
                 document.querySelector('.msg-update').style.display = "block";
+                document.querySelector('.msg-update').classList.add("alert-success");
+                setTimeout(() => {
+                    document.querySelector('.closeUpdate').click();
+                }, 3000)
             }
-            //document.querySelector('.email-seller').innerText = 'hello@gmail.com';
+
+            window.location.href = `${rootURL}/admin`
+
 
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            document.querySelector('.msg-update').innerText = err;
+            document.querySelector('.msg-update').style.display = "block";
+            document.querySelector('.msg-update').classList.add("alert-danger");
+        })
 
 
+})
+
+
+
+//set info for delete to dialog
+let btnRemoveOnProduct = [...document.querySelectorAll('.deleteProduct')];
+let btnRemoveProduct = document.querySelector('.confirm-removebtn');
+btnRemoveOnProduct.forEach(btn => {
+
+    btn.addEventListener('click', (e) => {
+        let name = e.target.getAttribute("data-name");
+        let barcode = e.target.getAttribute("data-barcode");
+
+        document.querySelector('.name-remove-product').innerText = name;
+        btnRemoveProduct.setAttribute('data-barcode', barcode);
+
+
+    })
+})
+//confirm delete
+btnRemoveProduct.addEventListener(('click'), async (e) => {
+    let barcode = e.target.getAttribute("data-barcode");
+
+    await fetch(`${rootURL}/api/product?barcode=${barcode}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+
+    })
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            // e1.target.setAttribute("data-dismiss", "modal")
+            // e.target.removeAttribute("data-target");
+            // $('#deleteEmployeeModal').modal('hide');
+            // let tr = btn.paren   tElement.parentElement;
+            // let tbodyElement = btn.parentElement.parentElement.parentElement;
+            // tbodyElement.removeChild(tr);
+
+            if (data != null) {
+                document.querySelector('.msg-remove').innerText = 'Successfully';
+                document.querySelector('.msg-remove').style.display = "block";
+                document.querySelector('.msg-remove').classList.add("alert-success");
+            }
+
+            setTimeout(() => {
+                document.querySelector('.closeRemove').click();
+            }, 3000)
+            window.location.reload();
+
+        })
+        .catch(err => {
+            document.querySelector('.msg-remove').innerText = err;
+            document.querySelector('.msg-remove').style.display = "block";
+            document.querySelector('.msg-remove').classList.add("alert-danger");
+        })
 })
 
 
@@ -207,7 +274,8 @@ async function lock(email) {
     })
         .then(response => response.json())
         .then(data => {
-            location.replace(`${rootURL}/admin`)
+            // location.replace(`${rootURL}/admin`)
+            window.location.reload();
         })
         .catch(err => console.log(err))
 }
@@ -216,28 +284,27 @@ async function lock(email) {
 async function unlock(email) {
     await fetch(`${rootURL}/api/unblock?email=${email}`, {
         method: 'get',
-        headers: { 'Contype-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' }
     })
         .then(response => response.json())
         .then(data => {
-            location.replace(`${rootURL}/admin`)
+            // location.replace(`${rootURL}/admin`)
+            window.location.reload();
+
         })
         .catch(err => console.log(err))
 }
 
 function redirectToRegisterForm() {
-    window.location.replace('http://localhost:3000/register')
+    window.location.href = `${rootURL}/register`
 }
 
 function redirectToAdmin() {
-    window.location.replace('http://localhost:3000/admin')
+    window.location.href = `${rootURL}/admin`
 
 }
 
 function redirectToAddProduct() {
-    window.location.replace('http://localhost:3000/api/addnewproduct')
-}
 
-function redirectToAddProduct() {
-    window.location.replace('http://localhost:3000/api/addnewproduct')
+    window.location.href = `${rootURL}/api/addnewproduct`
 }
