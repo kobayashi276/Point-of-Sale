@@ -10,4 +10,6 @@ router.get('/', async (req, res) => {
     res.render('admin', { users, products })
 })
 
+
+
 module.exports = router;
