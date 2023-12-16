@@ -88,7 +88,10 @@
                                     data-retail="<%= p.retailprice %>" data-category="<%= p.category %>"
                                     data-toggle="modal" data-target="#updateproduct">Edit</button>
 
-                                <button class="btn btn-danger btn-sm">Delete</button>
+                                <button style="width: 65px;" type="button" class="btn btn-danger btn-sm deleteProduct"
+                                    data-barcode="<%= p.barcode %>" data-name="<%= p.name %>" data-toggle="modal"
+                                    data-target="#deleteproduct">Delete</button>
+
                             </td>
                         </tr>
                         <% }) %>
@@ -336,46 +339,47 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Update Product</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close closeUpdate" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <!-- <form method="post" action="/api/product"> -->
-                    <div class="form-group">
-                        <label for="barcode">Barcode</label>
-                        <input name="barcode" type="text" class="form-control" id="barcode-dialog"
-                            placeholder="Enter product barcode">
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input name="name" type="text" class="form-control" id="name-dialog"
-                            placeholder="Enter product name">
-                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="barcode">Barcode</label>
+                            <input name="barcode" type="text" class="form-control" id="barcode-dialog"
+                                placeholder="Enter product barcode">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" type="text" class="form-control" id="name-dialog"
+                                placeholder="Enter product name">
+                        </div>
 
 
-                    <div class="form-group">
-                        <label for="importprice">Import Price</label>
-                        <input name="importprice" type="number" class="form-control" id="importprice-dialog"
-                            placeholder="Enter product import price">
-                    </div>
+                        <div class="form-group">
+                            <label for="importprice">Import Price</label>
+                            <input name="importprice" type="number" class="form-control" id="importprice-dialog"
+                                placeholder="Enter product import price">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="retailprice">Retail Price</label>
-                        <input name="retailprice" type="number" class="form-control" id="retailprice-dialog"
-                            placeholder="Enter product retail price">
-                    </div>
+                        <div class="form-group">
+                            <label for="retailprice">Retail Price</label>
+                            <input name="retailprice" type="number" class="form-control" id="retailprice-dialog"
+                                placeholder="Enter product retail price">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <input name="category" type="text" class="form-control" id="category-dialog"
-                            placeholder="Enter product category">
-                    </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input name="category" type="text" class="form-control" id="category-dialog"
+                                placeholder="Enter product category">
+                        </div>
 
-                    <button style=" width: 100%;" type="submit"
-                        class="btn btn-primary update-product-btn">Update</button>
-                    <!-- </form> -->
+                        <button style=" width: 100%;" type="submit"
+                            class="btn btn-primary update-product-btn">Update</button>
+                    </form>
 
                 </div>
-                <div class="alert alert-success msg-update" style="text-align: center;display: none;">
+                <div class="alert msg-update" style="text-align: center;display: none;">
 
                 </div>
 
@@ -383,6 +387,32 @@
         </div>
     </div>
 
+
+    <!-- delete product -->
+    <div id="deleteproduct" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Product</h4>
+                    <button type="button" class="close closeRemove" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure to delete
+                        <b class="name-remove-product"></b> ?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirm-removebtn">Remove</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="alert msg-remove" style="text-align: center;display: none;">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
     <!-- detail user -->
