@@ -35,9 +35,12 @@
                 <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
                 <li onclick="listPageContent('product')" class="active product-nav-bar"><span><i
                             class="fa-solid fa-bag-shopping"></i>Products</span></li>
-                <li onclick="listPageContent('order')" class="order-nav-bar"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
-                <li onclick="listPageContent('seller')" class="seller-nav-bar"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
-                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
+                <li onclick="listPageContent('order')" class="order-nav-bar"><span><i
+                            class="fa-solid fa-receipt"></i>Orders</span></li>
+                <li onclick="listPageContent('seller')" class="seller-nav-bar"><span><i
+                            class="fa-solid fa-user"></i>Sellers</span></li>
+                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i
+                            class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
@@ -141,7 +144,11 @@
                                 <%= u.email %>
                             </td>
                             <td>
-                                <%= u.active %>
+                                <% if(u.active=='true' ){ %>
+                                    <b>Verified</b>
+                                    <%}else{%>
+                                        <b>Not verify</b>
+                                        <%}%>
                             </td>
                             <td>
                                 <%if(u.lock=='true'){%>

@@ -1,22 +1,38 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
-const { getAllOrderByEmail } = require('../database/database')
+const { getUser, getAllOrderByEmail } = require('../database/database')
+const order = require('../database/model/order')
 require('dotenv/config')
 
-router.get('/' , async (req,res) => {
+router.get('/', async (req, res) => {
     const token = req.session.access_token
-    const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     const orders = await getAllOrderByEmail(decoded.email)
 
-    res.render('seller',{orders})
+
+    if (typeof orders == 'undefined') {
+        res.render('seller', {
+            email: decoded.email
+        })
+    }
+    else {
+        res.render('seller', {
+            orders: orders,
+            email: decoded.email
+        })
+    }
+
+
+
+
 })
 
-router.get('/new-order', async (req,res) => {
+router.get('/new-order', async (req, res) => {
     const token = req.session.access_token
-    const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     const email = decoded.email
-    res.render('new-order',{email})
+    res.render('new-order', { email })
 })
 
 module.exports = router

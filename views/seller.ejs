@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Seller</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link rel="stylesheet" href="/admin.css">
+    <style>
+        body,
+        html {
+            background: url('/image1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
     <!-- Custom CSS for animations and layout -->
 </head>
 
@@ -19,15 +26,30 @@
 
     <div class="wrapper">
         <!-- Sidebar -->
-        <nav class="sidebar bg-dark">
-            <div class="welcome-page">
-                <p>Welcome to seller</p>
+        <nav class="sidebar bg-dark" style="width: 176px;">
+            <div class="welcome-page mb-0">
+                <img src="/av3.png" class="mx-auto d-block" style="width: 50px; height: 50px;border-radius: 50%">
+
+                <p class="text-center">Welcome to
+                    <b style="color:#e71475">
+                        <%= email.split("@")[0] %>
+                    </b>
+
+                    <button type="button" data-email="<%= email %>" class="btn btn-secondary btnEditInfoOnNav"
+                        data-toggle="modal" data-target="#updateSeller">
+                        Edit Info
+                    </button>
+
+                </p>
+
             </div>
             <ul class="list-unstyled components">
                 <!-- class="active-nav" -->
                 <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
-                <li onclick="listPageContent('order')"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
-                <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
+                <li onclick="listPageContent('order')" class="active order-nav-bar"><span><i
+                            class="fa-solid fa-receipt"></i>Orders</span></li>
+                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i
+                            class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
@@ -36,7 +58,7 @@
 
 
         <!-- Page list of orders Content -->
-        <div class="page-content orders-page disable-page">
+        <div class="page-content orders-page">
             <div style="display: flex;">
                 <h2>Orders List</h2>
                 <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
@@ -52,26 +74,29 @@
                         <th scope="col">Update At</th>
                 </thead>
                 <tbody>
-                    <!-- Multiple rows of product data -->
-                    <% orders.forEach(o=> { %>
-                        <tr class="table-animate">
-                            <th scope="row">
-                                <%= o.id %>
-                            </th>
-                            <td>
-                                <%= o.customerphone %>
-                            </td>
-                            <td>
-                                <%= o.price %>
-                            </td>
-                            <td>
-                                <%= o.createAt %>
-                            </td>
-                            <td>
-                                <%= o.updateAt %>
-                            </td>
-                        </tr>
-                        <% }) %>
+                    <% if(orders!=null){%>
+                        <!-- Multiple rows of product data -->
+                        <% orders.forEach(o=> { %>
+                            <tr class="table-animate">
+                                <th scope="row">
+                                    <%= o.id %>
+                                </th>
+                                <td>
+                                    <%= o.customerphone %>
+                                </td>
+                                <td>
+                                    <%= o.price %>
+                                </td>
+                                <td>
+                                    <%= o.createAt %>
+                                </td>
+                                <td>
+                                    <%= o.updateAt %>
+                                </td>
+                            </tr>12:49 AM 12/17/2023
+
+                            <% }) %>
+                                <%}%>
 
 
 
@@ -91,7 +116,7 @@
                         <th scope="col">Barcode</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Import Price</th>
-                        <th scope="col  ">Retail Price</th>
+                        <th scope="col">Retail Price</th>
                         <th scope="col">Category</th>
                         <th scope="col">Thumbnail</th>
                         <th scope="col">Actions</th>
@@ -148,26 +173,12 @@
 
     </div>
 
-    <!-- resened email verify user -->
-    <div id="resendEmail" class="modal fade" style="top: 30%">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">verification</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>Send successfully</p>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
 
 
-    <!-- edit product -->
-    <div id="updateproduct" class="modal fade">
+
+    <!-- updateSeller-->
+    <div id="updateSeller" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -175,43 +186,33 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <!-- <form method="post" action="/api/product"> -->
+                    <!-- <form> -->
                     <div class="form-group">
-                        <label for="barcode">Barcode</label>
-                        <input name="barcode" type="text" class="form-control" id="barcode-dialog"
-                            placeholder="Enter product barcode">
+                        <label for="barcode">username</label>
+                        <input name="username" type="text" class="form-control" id="username-dialog"
+                            placeholder="Enter username">
                     </div>
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input name="name" type="text" class="form-control" id="name-dialog"
-                            placeholder="Enter product name">
+                        <label for="name">Phone</label>
+                        <input name="phone" type="number" class="form-control" id="phone-dialog"
+                            placeholder="Enter phone">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="importprice">Import Price</label>
-                        <input name="importprice" type="number" class="form-control" id="importprice-dialog"
-                            placeholder="Enter product import price">
+                        <label for="country">country</label>
+                        <input name="country" type="text" class="form-control" id="country-dialog"
+                            placeholder="Enter country">
                     </div>
 
-                    <div class="form-group">
-                        <label for="retailprice">Retail Price</label>
-                        <input name="retailprice" type="number" class="form-control" id="retailprice-dialog"
-                            placeholder="Enter product retail price">
-                    </div>
 
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <input name="category" type="text" class="form-control" id="category-dialog"
-                            placeholder="Enter product category">
-                    </div>
 
-                    <button style=" width: 100%;" type="submit"
-                        class="btn btn-primary update-product-btn">Update</button>
+                    <button style=" width: 100%; margin-bottom: 6px;" type="submit"
+                        class="btn btn-primary update-seller-btn">Update</button>
                     <!-- </form> -->
 
                 </div>
-                <div class="alert alert-success msg-update" style="text-align: center;display: none;">
+                <div class="alert msg-update" style="text-align: center;display: none;">
 
                 </div>
 

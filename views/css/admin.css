@@ -38,13 +38,20 @@ a {
 .sidebar span:hover,
 .sidebar span.active {
   cursor: pointer;
+  color: #82a4ff;
   background-color: var(--sidebar-hover-bg-color);
   padding-left: 1.5rem;
 }
 
 .sidebar li.active {
+  color: #82a4ff;
   background-color: var(--sidebar-hover-bg-color);
   padding-left: 1rem;
+}
+
+.sidebar li.active>span {
+  color: #82a4ff;
+
 }
 
 .sidebar a:hover {
@@ -103,4 +110,18 @@ a {
 
 .enable-page {
   display: block;
+}
+
+
+
+.circle-img {
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+}
+
+.circle-img img {
+  height: 100%;
+  transform: translateX(-50%);
+  margin-left: 50%;
 }

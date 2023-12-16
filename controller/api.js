@@ -14,22 +14,25 @@ router.get('/user', async (req, res) => {
     res.json(user)
 })
 
-router.put('/user',sellerpermission, async (req,res) => {
-    const {email} = req.query
+router.put('/user', sellerpermission, async (req, res) => {
+    const { email } = req.query
 
-    const {username,phone,country} = req.body
+    const { username, phone, country } = req.body
+
+    console.log('hellp')
+
 
     const token = req.session.access_token
-    if (token){
-        const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
+    if (token) {
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
-        if (decoded.email === email){
-            const user = await updateUser(email,username,phone,country)
+        if (decoded.email === email) {
+            const user = await updateUser(email, username, phone, country)
 
-            if (user){
+            if (user) {
                 res.json(user)
             }
-            else{
+            else {
                 res.json(null)
             }
         }
@@ -43,11 +46,11 @@ router.get('/addnewproduct', adminpermission, (req, res) => {
 router.get('/product', async (req, res) => {
     const { barcode } = req.query
 
-    if (barcode){
+    if (barcode) {
         const product = await getProduct(barcode)
         res.json(product)
     }
-    else{
+    else {
         const product = await getAllProduct()
 
         res.json(product)
@@ -116,8 +119,8 @@ router.delete('/product', async (req, res) => {
 router.put('/product', async (req, res) => {
     const { barcode } = req.query
     const { name, importprice, retailprice, category } = req.body
-    
-    console.log(barcode, name,importprice)
+
+    console.log(barcode, name, importprice)
 
 
     try {
@@ -130,21 +133,21 @@ router.put('/product', async (req, res) => {
     }
 })
 
-router.post('/order', async (req,res) => {
-    const {email} = req.query
-    const {customerphone} = req.body
+router.post('/order', async (req, res) => {
+    const { email } = req.query
+    const { customerphone } = req.body
 
-    try{
-        const order = await createOrder(email,customerphone)
+    try {
+        const order = await createOrder(email, customerphone)
 
-        if (order){
+        if (order) {
             res.json(order)
         }
-        else{
+        else {
             res.json(null)
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         res.json(null)
     }
