@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct, updateUser } = require('../database/database')
+const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct, updateUser, createOrder, getAllProduct } = require('../database/database')
 const adminpermission = require('../middleware/adminpermission')
 const jwt = require('jsonwebtoken')
 const sellerpermission = require('../middleware/sellerpermission')
@@ -42,10 +42,16 @@ router.get('/addnewproduct', adminpermission, (req, res) => {
 
 router.get('/product', adminpermission, async (req, res) => {
     const { barcode } = req.query
+    console.log(barcode)
+    if (barcode){
+        const product = await getProduct(barcode)
+        res.json(product)
+    }
+    else{
+        const product = await getAllProduct()
 
-    const product = await getProduct(barcode)
-
-    res.json(product)
+        res.json(product)
+    }
 
 
 })
@@ -122,6 +128,27 @@ router.put('/product', async (req, res) => {
         console.log(err)
         res.json(null)
     }
+})
+
+router.post('/order', async (req,res) => {
+    const {email} = req.query
+    const {customerphone} = req.body
+
+    try{
+        const order = await createOrder(email,customerphone)
+
+        if (order){
+            res.json(order)
+        }
+        else{
+            res.json(null)
+        }
+    }
+    catch(err){
+        console.log(err)
+        res.json(null)
+    }
+
 })
 
 module.exports = router

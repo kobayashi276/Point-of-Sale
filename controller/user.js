@@ -102,7 +102,7 @@ router.post('/register', adminpermission, async (req, res) => {
 
             if (user) {
                 console.log(user)
-                res.redirect('/admin')
+                res.redirect('/')
                 return
                 // await createAuthStatus(user.id, token)
             }
@@ -110,7 +110,7 @@ router.post('/register', adminpermission, async (req, res) => {
             console.log('Verification email sent')
         }
     });
-    res.redirect('/login')
+    // res.redirect('/login')
 })
 
 router.get('/firstlogin', async (req, res) => {

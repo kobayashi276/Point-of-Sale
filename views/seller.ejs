@@ -40,64 +40,30 @@
             <div style="display: flex;">
                 <h2>Orders List</h2>
                 <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
-                    class="btn btn-primary btn-sm" onclick="redirectToRegisterForm()">Add New Product</button>
+                    class="btn btn-primary btn-sm" onclick="redirectToAddOrder()">Add New Order</button>
             </div>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Barcode</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Import Price</th>
-                        <th scope="col">Retail Price</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Customer Phone</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Create Date</th>
+                        <th scope="col">Update At</th>
                 </thead>
                 <tbody>
                     <!-- Multiple rows of product data -->
-                    <tr class="table-animate">
-                        <th scope="row">1</th>
-                        <td>1209384750293</td>
-                        <td>iPhone 15 Pro Max</td>
-                        <td>30,599,000 đ</td>
-                        <td>34,990,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Add more rows with different products as needed -->
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
+                    <% orders.forEach(o => { %>
+                        <tr class="table-animate">
+                            <th scope="row"><%= o.id %></th>
+                            <td><%= o.customerphone %></td>
+                            <td><%= o.price %></td>
+                            <td><%= o.createAt %></td>
+                            <td><%= o.updateAt %></td>
+                        </tr>
+                    <% }) %>
+                   
+                    
 
 
                 </tbody>
