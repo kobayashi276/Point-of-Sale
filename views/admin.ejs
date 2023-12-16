@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <link rel="stylesheet" href="/admin.css">
+    <style>
+        body,
+        html {
+            background: url('/image1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
     <!-- Custom CSS for animations and layout -->
 </head>
 
@@ -26,11 +33,11 @@
             <ul class="list-unstyled components">
                 <!-- class="active-nav" -->
                 <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
-                <li onclick="listPageContent('product')" class="active"><span><i
+                <li onclick="listPageContent('product')" class="active product-nav-bar"><span><i
                             class="fa-solid fa-bag-shopping"></i>Products</span></li>
-                <li onclick="listPageContent('order')"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
-                <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
-                <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
+                <li onclick="listPageContent('order')" class="order-nav-bar"><span><i class="fa-solid fa-receipt"></i>Orders</span></li>
+                <li onclick="listPageContent('seller')" class="seller-nav-bar"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
+                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
@@ -61,7 +68,7 @@
                 <tbody>
                     <!-- Multiple rows of product data -->
                     <% products.forEach((p,index)=> { %>
-                        <tr class="table-animate">
+                        <tr class="table-animate" style="background-color: #aeb5cb;">
                             <th scope="row">
                                 <%= index+1 %>
                             </th>
@@ -123,7 +130,7 @@
                 </thead>
                 <tbody>
                     <% users.forEach((u,index)=> { %>
-                        <tr class="table-animate">
+                        <tr class="table-animate" style="background-color: #a4d5a7;">
                             <th scope="row">
                                 <%= index + 1 %>
                             </th>
@@ -200,7 +207,7 @@
                 </thead>
                 <tbody>
                     <!-- Multiple rows of product data -->
-                    <tr class="table-animate">
+                    <tr class="table-animate" style="    background-color: #e3c992;">
                         <th scope="row">1</th>
                         <td>1209384750293</td>
                         <td>iPhone 15 Pro Max</td>

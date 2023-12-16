@@ -229,18 +229,35 @@ btnRemoveProduct.addEventListener(('click'), async (e) => {
 
 
 
-
+//handle nav bar
 function listPageContent(pageType) {
     let product = document.querySelector('.product-page');
     let order = document.querySelector('.orders-page');
     let seller = document.querySelector('.seller-page');
     let statistic = document.querySelector('.statistic-page');
 
+    let productNav = document.querySelector('.product-nav-bar');
+    let orderNav = document.querySelector('.order-nav-bar');
+    let sellerNav = document.querySelector('.seller-nav-bar');
+    let statisticNav = document.querySelector('.statistic-nav-bar');
+
+
+
+
+
+
     if (pageType === 'product') {
         product.classList.remove("disable-page");
         order.classList.add("disable-page");
         seller.classList.add("disable-page");
         statistic.classList.add("disable-page");
+
+        productNav.classList.add("active");
+        orderNav.classList.remove("active");
+        sellerNav.classList.remove("active");
+        statisticNav.classList.remove("active");
+
+
 
     }
     if (pageType === 'order') {
@@ -249,6 +266,11 @@ function listPageContent(pageType) {
         seller.classList.add("disable-page");
         statistic.classList.add("disable-page");
 
+        productNav.classList.remove("active");
+        orderNav.classList.add("active");
+        sellerNav.classList.remove("active");
+        statisticNav.classList.remove("active");
+
     }
     if (pageType === 'seller') {
         product.classList.add("disable-page");
@@ -256,17 +278,27 @@ function listPageContent(pageType) {
         seller.classList.remove("disable-page");
         statistic.classList.add("disable-page");
 
+        productNav.classList.remove("active");
+        orderNav.classList.remove("active");
+        sellerNav.classList.add("active");
+        statisticNav.classList.remove("active");
+
     }
     if (pageType === 'statistic') {
         product.classList.add("disable-page");
         order.classList.add("disable-page");
         seller.classList.add("disable-page");
         statistic.classList.remove("disable-page");
+
+        productNav.classList.remove("active");
+        orderNav.cremoveremoveremovelassList.remove("active");
+        sellerNav.classList.remove("active");
+        statisticNav.classList.add("active");
     }
 }
 
 
-
+//lock seller
 async function lock(email) {
     await fetch(`${rootURL}/api/lock?email=${email}`, {
         method: 'get',
@@ -280,7 +312,7 @@ async function lock(email) {
         .catch(err => console.log(err))
 }
 
-
+//unlock seller
 async function unlock(email) {
     await fetch(`${rootURL}/api/unblock?email=${email}`, {
         method: 'get',
