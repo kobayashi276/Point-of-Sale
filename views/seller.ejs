@@ -32,7 +32,7 @@
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
-       
+
 
 
         <!-- Page list of orders Content -->
@@ -53,17 +53,27 @@
                 </thead>
                 <tbody>
                     <!-- Multiple rows of product data -->
-                    <% orders.forEach(o => { %>
+                    <% orders.forEach(o=> { %>
                         <tr class="table-animate">
-                            <th scope="row"><%= o.id %></th>
-                            <td><%= o.customerphone %></td>
-                            <td><%= o.price %></td>
-                            <td><%= o.createAt %></td>
-                            <td><%= o.updateAt %></td>
+                            <th scope="row">
+                                <%= o.id %>
+                            </th>
+                            <td>
+                                <%= o.customerphone %>
+                            </td>
+                            <td>
+                                <%= o.price %>
+                            </td>
+                            <td>
+                                <%= o.createAt %>
+                            </td>
+                            <td>
+                                <%= o.updateAt %>
+                            </td>
                         </tr>
-                    <% }) %>
-                   
-                    
+                        <% }) %>
+
+
 
 
                 </tbody>
