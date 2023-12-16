@@ -96,8 +96,7 @@
             <div style="display: flex;">
                 <h2>Seller List</h2>
                 <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
-                    class="btn btn-primary btn-sm" data-toggle="modal" data-target="#registerseller">Add New
-                    Seller</button>
+                    class="btn btn-primary btn-sm" onclick="redirectToRegisterForm()">Add New Seller</button>
             </div>
             <table class="table table-hover">
                 <thead class="thead-dark">
@@ -321,33 +320,7 @@
         </div>
     </div>
 
-    <!-- create new seller -->
-    <div class="modal fade" id="registerseller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Seller</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="http://localhost:3000/register">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Email:</label>
-                            <input class="form-control" type="text" placeholder="Enter Email" name="email" id="email"
-                                required>
-                        </div>
-                        <button onclick="resetFillInput()" type="button" class="btn btn-primary"
-                            data-dismiss="modal">Register</button>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-
-    </div>
 
     <!-- register seller
     <div id="registerseller" class="modal fade" style="top: 10%">
