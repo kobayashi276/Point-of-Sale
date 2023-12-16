@@ -40,9 +40,9 @@ router.get('/addnewproduct', adminpermission, (req, res) => {
     res.render('addproduct')
 })
 
-router.get('/product', adminpermission, async (req, res) => {
+router.get('/product', async (req, res) => {
     const { barcode } = req.query
-    console.log(barcode)
+
     if (barcode){
         const product = await getProduct(barcode)
         res.json(product)

@@ -33,19 +33,24 @@
         <form id="orderForm">
             <label for="customerPhone">Customer Phone:</label>
             <input type="text" id="customerPhone" name="customerPhone" required>
-    
+
             <label for="searchBarcode">Search by Barcode:</label>
             <input type="text" id="searchBarcode" name="searchBarcode" placeholder="Enter barcode" autocomplete="off">
             <div id="searchResults"></div>
-    
+
             <button type="button" onclick="createOrder()">Create Order</button>
+
+            <div id="selectedProducts">
+                <h2>Selected Products</h2>
+                <ul id="selectedProductsList"></ul>
+            </div>
         </form>
     </body>
 
     </html>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/seller.js"></script>
+    <script src="/seller_create_order.js"></script>
 
 </body>
 
