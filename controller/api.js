@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct } = require('../database/database')
+const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct, updateUser } = require('../database/database')
 const adminpermission = require('../middleware/adminpermission')
+const jwt = require('jsonwebtoken')
+const sellerpermission = require('../middleware/sellerpermission')
+require('dotenv/config')
 
 router.get('/user', async (req, res) => {
     const { email } = req.query
@@ -11,10 +14,30 @@ router.get('/user', async (req, res) => {
     res.json(user)
 })
 
+router.put('/user',sellerpermission, async (req,res) => {
+    const {email} = req.query
+
+    const {username,phone,country} = req.body
+
+    const token = req.session.access_token
+    if (token){
+        const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
+
+        if (decoded.email === email){
+            const user = await updateUser(email,username,phone,country)
+
+            if (user){
+                res.json(user)
+            }
+            else{
+                res.json(null)
+            }
+        }
+    }
+})
+
 router.get('/addnewproduct', adminpermission, (req, res) => {
-
     res.render('addproduct')
-
 })
 
 router.get('/product', adminpermission, async (req, res) => {
@@ -87,6 +110,8 @@ router.delete('/product', async (req, res) => {
 router.put('/product', async (req, res) => {
     const { barcode } = req.query
     const { name, importprice, retailprice, category } = req.body
+    
+    console.log(barcode, name,importprice)
 
 
     try {

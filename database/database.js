@@ -411,6 +411,80 @@ const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
     }
 }
 
+const updateUser = async (email,username,phone,country) => {
+    User.sync()
+
+    try{
+        const user = User.update({
+            fullname: username,
+            phone: phone,
+            country: country
+        },
+        {
+            where:{
+                email: email
+            },
+            returnning: true
+        })
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const getAllOrderByEmail = async (email) => {
+    Order.sync()
+
+    try{
+        const order = await Order.findAll({
+            where:{
+                seller: email
+            }
+        })
+
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const createOrder = async (seller,customerphone, price) => {
+    Order.sync()
+
+    try{
+        const order = await Order.create({
+            seller: seller,
+            customerphone: customerphone,
+            price: price
+        })
+
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
 
 (async () => {
     try {
@@ -468,4 +542,4 @@ const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
     }
 })();
 
-module.exports = {updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }

@@ -41,6 +41,9 @@ router.post('/login', logoutcheck, async (req, res) => {
         if (user.active === 'false') {
             res.send('Please login via the link was given from the email!')
         }
+        else if (user.lock==='true'){
+            res.send('The account has been locked by admin. Contract to admin for information!')
+        }
         else {
             const payload = {
                 email: user.email,
@@ -50,7 +53,12 @@ router.post('/login', logoutcheck, async (req, res) => {
             if (user.active === 'true') {
                 const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
                 req.session.access_token = token
-                res.redirect('/') //phan quyen cho
+                if (user.permission === 'admin'){
+                    res.redirect('/admin')
+                }
+                else{
+                    res.redirect('/') //phan quyen cho
+                }
             }
             else {
                 res.redirect('/login')
@@ -95,6 +103,7 @@ router.post('/register', adminpermission, async (req, res) => {
             if (user) {
                 console.log(user)
                 res.redirect('/admin')
+                return
                 // await createAuthStatus(user.id, token)
             }
 
