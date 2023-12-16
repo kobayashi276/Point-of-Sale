@@ -158,11 +158,11 @@ async function unlock(email) {
         .catch(err => console.log(err))
 }
 
-function resetFillInput() {
+function redirectToRegisterForm() {
+    window.location.replace('http://localhost:3000/register')
+}
 
-    // setTimeout(() => {
+function redirectToAdmin() {
+    window.location.replace('http://localhost:3000/admin')
 
-    // }, 3000)
-
-    document.querySelector('#email').value = '';
 }
