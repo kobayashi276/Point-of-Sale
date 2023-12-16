@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/login.css">
+    <style>
+        body,
+        html {
+            background: url('/image1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center">Add new Product</h3>
+                    <form method="post" action="/api/product">
+                        <div class="form-group">
+                            <label for="barcode">Barcode</label>
+                            <input name="barcode" type="text" class="form-control" id="barcode"
+                                placeholder="Enter product barcode">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" type="text" class="form-control" id="name"
+                                placeholder="Enter product name">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="importprice">Import Price</label>
+                            <input name="importprice" type="number" class="form-control" id="importprice"
+                                placeholder="Enter product import price">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="retailprice">Retail Price</label>
+                            <input name="retailprice" type="number" class="form-control" id="retailprice"
+                                placeholder="Enter product retail price">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input name="category" type="text" class="form-control" id="category"
+                                placeholder="Enter product category">
+                        </div>
+
+                        <button style=" width: 100%;" type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                    <button style="margin-top: 10px; width: 100%;" onclick="redirectToAdmin()" type="submit"
+                        class="btn btn-warning">Back</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

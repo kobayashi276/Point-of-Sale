@@ -29,6 +29,7 @@ router.get('/login', logoutcheck, (req, res) => {
     res.render('login')
 })
 
+
 router.post('/login', logoutcheck, async (req, res) => {
     const { username, psw } = req.body
 

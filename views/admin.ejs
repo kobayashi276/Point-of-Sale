@@ -32,7 +32,7 @@
                 <li onclick="listPageContent('seller')"><span><i class="fa-solid fa-user"></i>Sellers</span></li>
                 <li onclick="listPageContent('statistic')"><span><i class="fa-solid fa-chart-pie"></i>Reports</span>
                 </li>
-                <li><a href="/login"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+                <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
 
@@ -40,7 +40,11 @@
 
         <!-- Page product Content -->
         <div class="page-content product-page ">
-            <h2>Product List</h2>
+            <div style="display: flex;">
+                <h2>Products List</h2>
+                <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
+                    class="btn btn-primary btn-sm" onclick="redirectToAddProduct()">Add New Product</button>
+            </div>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -76,9 +80,14 @@
                             <td>
                                 <%= p.category %>
                             </td>
-                            <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
+                            <td><img src="/banner1.jpg" style="width: 50px; height: auto;"></td>
                             <td>
-                                <button class="btn btn-primary btn-sm">Edit</button>
+                                <button style="width: 65px;" type="button"
+                                    class="btn btn-primary btn-sm EditBtnDetailProduct" data-barcode="<%= p.barcode %>"
+                                    data-name="<%= p.name %>" data-import="<%= p.importprice %>"
+                                    data-retail="<%= p.retailprice %>" data-category="<%= p.category %>"
+                                    data-toggle="modal" data-target="#updateproduct">Edit</button>
+
                                 <button class="btn btn-danger btn-sm">Delete</button>
                             </td>
                         </tr>
@@ -94,7 +103,7 @@
         <!-- Page list of seller Content -->
         <div class="page-content seller-page disable-page">
             <div style="display: flex;">
-                <h2>Seller List</h2>
+                <h2>Sellers List</h2>
                 <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
                     class="btn btn-primary btn-sm" onclick="redirectToRegisterForm()">Add New Seller</button>
             </div>
@@ -107,15 +116,13 @@
                         <th scope="col">Active status</th>
                         <th scope="col">Lock status</th>
                         <th scope="col"></th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <% users.forEach((u,index)=> { %>
                         <tr class="table-animate">
                             <th scope="row">
-                                <%= index+1 %>
+                                <%= index + 1 %>
                             </th>
                             <td>
                                 <%= u.fullname %>
@@ -141,19 +148,18 @@
                                 </button>
 
                                 <% if( u.lock=='false' ){ %>
-                                    <button onclick="lock('<%= u.email %>')" type="button"
-                                        class="btn btn-danger btn-sm lock" data-email=<%=u.email %>
+                                    <button style="width: 65px;" onclick="lock('<%= u.email %>')" type="button"
+                                        class="btn btn-danger btn-sm lock" data-email="<%=u.email %>"
                                         data-toggle="modal" data-target="#lockseller">
                                         Lock
                                     </button>
                                     <% } else{ %>
-                                        <button onclick="unlock('<%= u.email %>')" type="button"
-                                            class="btn btn-danger btn-sm lock" data-email=<%=u.email %>
-                                            data-toggle="modal" data-target="#unlockseller">
+                                        <button style="width: 65px;" onclick="unlock('<%= u.email %>')" type="button"
+                                            class="btn btn-danger btn-sm lock" data-email="<%=u.email %>"
+                                            data-toggle=" modal" data-target="#unlockseller">
                                             UnLock
                                         </button>
                                         <% } %>
-
                                             <button type="button" class="btn btn-warning btn-sm delete"
                                                 data-email="<%= u.email %>" data-toggle="modal"
                                                 data-target="#detailseller">
@@ -162,8 +168,6 @@
                             </td>
                         </tr>
                         <%}) %>
-
-
                 </tbody>
             </table>
         </div>
@@ -173,7 +177,11 @@
 
         <!-- Page list of orders Content -->
         <div class="page-content orders-page disable-page">
-            <h2>Orders List</h2>
+            <div style="display: flex;">
+                <h2>Orders List</h2>
+                <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
+                    class="btn btn-primary btn-sm" onclick="redirectToRegisterForm()">Add New Product</button>
+            </div>
             <table class="table table-hover">
                 <thead class="thead-dark">
                     <tr>
@@ -181,7 +189,7 @@
                         <th scope="col">Barcode</th>
                         <th scope="col">Product Name</th>
                         <th scope="col">Import Price</th>
-                        <th scope="col  ">Retail Price</th>
+                        <th scope="col">Retail Price</th>
                         <th scope="col">Category</th>
                         <th scope="col">Thumbnail</th>
                         <th scope="col">Actions</th>
@@ -322,46 +330,58 @@
 
 
 
-    <!-- register seller
-    <div id="registerseller" class="modal fade" style="top: 10%">
+    <!-- edit product -->
+    <div id="updateproduct" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Create Seller</h4>
+                    <h4 class="modal-title">Update Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <img src="/banner1.jpg" style="width: 120px; height: auto;">
-
-                        <div class="modal-body">
-                            <div class="container">
-                                <h1>Register</h1>
-                                <p>Please fill in this form to create an account.</p>
-                                <hr>
-
-                                <label for="email"><b>Email</b></label>
-                                <input type="text" placeholder="Enter Email" name="email" id="email" required>
-                                <hr>
-                                <button type="submit" class="registerbtn">Register</button>
-                            </div>
-                        </div>
-
-
-                        <form method="post" action="http://localhost:3000/register">
-
-                        </form>
+                    <!-- <form method="post" action="/api/product"> -->
+                    <div class="form-group">
+                        <label for="barcode">Barcode</label>
+                        <input name="barcode" type="text" class="form-control" id="barcode-dialog"
+                            placeholder="Enter product barcode">
                     </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input name="name" type="text" class="form-control" id="name-dialog"
+                            placeholder="Enter product name">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="importprice">Import Price</label>
+                        <input name="importprice" type="number" class="form-control" id="importprice-dialog"
+                            placeholder="Enter product import price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="retailprice">Retail Price</label>
+                        <input name="retailprice" type="number" class="form-control" id="retailprice-dialog"
+                            placeholder="Enter product retail price">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input name="category" type="text" class="form-control" id="category-dialog"
+                            placeholder="Enter product category">
+                    </div>
+
+                    <button style=" width: 100%;" type="submit"
+                        class="btn btn-primary update-product-btn">Update</button>
+                    <!-- </form> -->
+
+                </div>
+                <div class="alert alert-success msg-update" style="text-align: center;display: none;">
 
                 </div>
 
             </div>
         </div>
-    </div> -->
+    </div>
 
 
 

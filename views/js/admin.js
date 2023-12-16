@@ -91,6 +91,73 @@ btnDelete.forEach(btn => {
     })
 })
 
+let btnEditOnProduct = [...document.querySelectorAll('.EditBtnDetailProduct')];
+btnEditOnProduct.forEach(btn => {
+
+    btn.addEventListener('click', (e) => {
+        let barcode = e.target.getAttribute("data-barcode");
+        let oldName = e.target.getAttribute("data-name");
+        let oldImportPrice = e.target.getAttribute("data-import");
+        let oldRetailPrice = e.target.getAttribute("data-retail");
+        let oldCategory = e.target.getAttribute("data-category");
+
+        let barcodeInput = document.querySelector('#barcode-dialog');
+        let nameInput = document.querySelector('#name-dialog');
+        let importInput = document.querySelector('#importprice-dialog');
+        let retailInput = document.querySelector('#retailprice-dialog');
+        let categoryInput = document.querySelector('#category-dialog');
+
+        barcodeInput.value = barcode;
+        nameInput.value = oldName;
+        importInput.value = oldImportPrice;
+        retailInput.value = oldRetailPrice;
+        categoryInput.value = oldCategory;
+    })
+})
+
+
+
+// submit update 
+let btnUpdateProduct = document.querySelector('.update-product-btn');
+btnUpdateProduct.addEventListener('click', async () => {
+
+    let barcodeInput = document.querySelector('#barcode-dialog').value;
+    let nameInput = document.querySelector('#name-dialog').value;
+    let importInput = document.querySelector('#importprice-dialog').value;
+    let retailInput = document.querySelector('#retailprice-dialog').value;
+    let categoryInput = document.querySelector('#category-dialog').value;
+
+    await fetch(`${rootURL}/api/product?barcode=${barcodeInput}`, {
+        method: 'put',
+        headers: { 'Contype-Type': 'application/json' },
+        body: JSON.stringify({
+            name: nameInput,
+            importprice: importInput,
+            retailprice: retailInput,
+            category: categoryInput
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            // e1.target.setAttribute("data-dismiss", "modal")
+            // e.target.removeAttribute("data-target");
+            // $('#deleteEmployeeModal').modal('hide');
+            // let tr = btn.paren   tElement.parentElement;
+            // let tbodyElement = btn.parentElement.parentElement.parentElement;
+            // tbodyElement.removeChild(tr);
+
+            if (data == 1) {
+                document.querySelector('.msg-update').innerText = 'Successfully';
+                document.querySelector('.msg-update').style.display = "block";
+            }
+            //document.querySelector('.email-seller').innerText = 'hello@gmail.com';
+
+        })
+        .catch(err => console.log(err))
+
+
+})
 
 
 
@@ -165,4 +232,12 @@ function redirectToRegisterForm() {
 function redirectToAdmin() {
     window.location.replace('http://localhost:3000/admin')
 
+}
+
+function redirectToAddProduct() {
+    window.location.replace('http://localhost:3000/api/addnewproduct')
+}
+
+function redirectToAddProduct() {
+    window.location.replace('http://localhost:3000/api/addnewproduct')
 }
