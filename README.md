@@ -24,6 +24,8 @@ OAUTH_REFRESH_TOKEN=1//040rMvaXyGgKjCgYIARAAGAQSNwF-L9IraSViT9S6WKK3CyI3OmX815am
 
 - GET localhost:3000/api/user?email=<> Get data from user
 
+- PUT localhost:3000/api/unblock?email=<> Update data user from user
+
 - GET localhost:3000/api/product?barcode=<> Get data from product
 
 - POST localhost:3000/api/product?barcode=<>&name=<>&importprice=<>&retailprice=<>&category=<> Add new product

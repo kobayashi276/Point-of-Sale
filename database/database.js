@@ -411,6 +411,34 @@ const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
     }
 }
 
+const updateUser = async (email,username,phone,country) => {
+    User.sync()
+
+    try{
+        const user = User.update({
+            fullname: username,
+            phone: phone,
+            country: country
+        },
+        {
+            where:{
+                email: email
+            },
+            returnning: true
+        })
+        if (user){
+            return user
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
 
 (async () => {
     try {
@@ -468,4 +496,4 @@ const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
     }
 })();
 
-module.exports = {updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
