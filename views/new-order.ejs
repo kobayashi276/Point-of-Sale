@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/admin.css">
-    <link rel="stylesheet" href="/seller.css">
+    <!-- <link rel="stylesheet" href="/seller.css"> -->
     <style>
         body,
         html {
@@ -96,7 +96,7 @@
 
             <div class="text-end" style="padding: 0 5px 0 5px; display: flex; align-items: center;height: 40px;">
                 <p style="flex:1">Total:</p>
-                <p>12.000.000</p>
+                <p id="total-price">0</p>
                 <p style="margin-left: 2px;">VND</p>
             </div>
 
@@ -112,11 +112,11 @@
                 <form class="form-inline">
 
                     <div class="form-group mx-sm-3 mb-2">
-                        <input name="customerPhone" type="text" class="form-control" id="inputPassword2"
-                            placeholder="Customer Name">
+                        <input name="customername" type="text" class="form-control" id="customername"
+                            placeholder="Customer Name" required>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="inputPassword2" placeholder="Phone">
+                        <input type="text" class="form-control" id="customerphone" placeholder="Phone" id="customerphone" required>
                     </div>
 
                 </form>
@@ -144,10 +144,10 @@
                     <label for="searchBarcode">Search by Barcode:</label>
                     <input type="text" id="searchBarcode" name="searchBarcode" placeholder="Enter barcode"
                         autocomplete="off">
-                    <!-- <div id="searchResults"></div> -->
+                    <div id="searchResults"></div>
                 </div>
             </div>
-            <table class="table table-hover">
+            <table class="table table-hover" id="product-table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -155,7 +155,7 @@
                         <th scope="col">Product Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -163,7 +163,10 @@
                 <tbody>
                     <!-- display data here -->
                     <!-- Multiple rows of product data -->
-
+                    <div id="selectedProducts">
+                        <h2>Selected Products</h2>
+                        <ul id="selectedProductsList"></ul>
+                    </div>
 
 
                 </tbody>
@@ -192,7 +195,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- <script src="/seller_create_order.js"></script> -->
+    <script src="/seller_create_order.js"></script>
 
 </body>
 
