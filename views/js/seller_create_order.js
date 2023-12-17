@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 
-    function updateQuantity(){
+    function updateQuantity() {
         selectedProductQuantity = []
         var tableRows = document.querySelectorAll('#product-table tbody tr');
 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             quantityInput.name = 'quantity'; // Optional: Add a name for the input
             cellQuantity.appendChild(quantityInput);
 
-            quantityInput.addEventListener('input',(event) => {
+            quantityInput.addEventListener('input', (event) => {
                 updateTotalPrice()
             })
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var totalPrice = 0
 
         tableRows.forEach(function (row) {
-            totalPrice+=parseFloat(row.cells[3].textContent) * parseInt(row.cells[5].querySelector('input[type="number"]').value)
+            totalPrice += parseFloat(row.cells[3].textContent) * parseInt(row.cells[5].querySelector('input[type="number"]').value)
         });
 
         var totalPriceP = document.getElementById('total-price')
@@ -150,3 +150,48 @@ function createOrder() {
     console.log('Customer Phone:', customerPhone);
     console.log('Selected Product IDs:', Array.from(selectedProductIds));
 }
+
+var checkoutBtn = document.querySelector('.checkout-btn')
+
+checkoutBtn.addEventListener('click', () => {
+    const customername = document.getElementById('customernameinput').value
+    const customerphone = document.getElementById('customerphoneinput').value
+    const sellername = document.getElementById('seller-name').innerHTML
+    const totalPriceP = document.getElementById('total-price')
+    console.log(customername,customerphone)
+    let List = []
+    List.push({
+        customername: customername,
+        customerphone: customerphone,
+        seller: sellername,
+        totalPrice: totalPriceP.innerHTML
+    })
+    let index = 0
+
+    selectedProductIds.forEach(product => {
+        List.push({
+            barcode: product.barcode,
+            name: product.name,
+            quantity: selectedProductQuantity[index],
+            // totalPrice: selectedProductQuantity[index] * parseFloat(product.retailprice)
+        })
+
+        index++
+    })
+
+    fetch(`${rootURL}/api/order`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(List)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+})

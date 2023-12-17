@@ -4,6 +4,7 @@ const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, u
 const adminpermission = require('../middleware/adminpermission')
 const jwt = require('jsonwebtoken')
 const sellerpermission = require('../middleware/sellerpermission')
+
 require('dotenv/config')
 
 router.get('/user', async (req, res) => {
@@ -134,24 +135,13 @@ router.put('/product', async (req, res) => {
 })
 
 router.post('/order', async (req, res) => {
-    const { email } = req.query
-    const { customerphone } = req.body
+    // const { email } = req.query
+    // const { customerphone } = req.body
 
-    try {
-        const order = await createOrder(email, customerphone)
+    const body = req.body
 
-        if (order) {
-            res.json(order)
-        }
-        else {
-            res.json(null)
-        }
-    }
-    catch (err) {
-        console.log(err)
-        res.json(null)
-    }
-
+    const order = await createOrder(body)
+    res.json(order)
 })
 
 module.exports = router
