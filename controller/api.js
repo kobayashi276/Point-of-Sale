@@ -119,13 +119,13 @@ router.delete('/product', async (req, res) => {
 
 router.put('/product', async (req, res) => {
     const { barcode } = req.query
-    const { name, importprice, retailprice, category } = req.body
+    const { name, importprice, retailprice, quantity } = req.body
 
-    console.log(barcode, name, importprice)
+    console.log(barcode, name, quantity)
 
 
     try {
-        const product = await updateProduct(barcode, name, importprice, retailprice, category)
+        const product = await updateProduct(barcode, name, importprice, retailprice, quantity)
         res.json(product)
     }
     catch (err) {

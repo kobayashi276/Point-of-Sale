@@ -31,39 +31,39 @@ sequelize.sync()
 const getAllProduct = async () => {
     Product.sync()
 
-    try{
+    try {
         const product = await Product.findAll()
-        if (product){
+        if (product) {
             return product
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
 }
 
-const getProduct = async (barcode) =>{
+const getProduct = async (barcode) => {
     Product.sync()
 
-    try{
+    try {
         const product = await Product.findOne({
-            where:{
+            where: {
                 barcode: barcode
             }
         })
 
-        if (product){
+        if (product) {
             return product
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -179,7 +179,7 @@ const authUserLogin = async (username, password) => {
                 return null
             }
         }
-        else{
+        else {
             return null
         }
 
@@ -270,25 +270,25 @@ const changeUserPassword = async (email, password) => {
 const lockUser = async (email) => {
     User.sync()
 
-    try{
+    try {
         const user = await User.update({
             lock: 'true'
         },
-        {
-            where:{
-                email: email
-            },
-            returnning: true
-        })
+            {
+                where: {
+                    email: email
+                },
+                returnning: true
+            })
 
-        if (user){
+        if (user) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -297,34 +297,34 @@ const lockUser = async (email) => {
 const unblockUser = async (email) => {
     User.sync()
 
-    try{
+    try {
         const user = await User.update({
             lock: 'false'
         },
-        {
-            where:{
-                email: email
-            },
-            returnning: true
-        })
+            {
+                where: {
+                    email: email
+                },
+                returnning: true
+            })
 
-        if (user){
+        if (user) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
 }
 
-const addProduct = async (barcode,name,importprice,retailprice,category) => {
+const addProduct = async (barcode, name, importprice, retailprice, category) => {
     Product.sync()
 
-    try{
+    try {
         const product = Product.create({
             barcode: barcode,
             name: name,
@@ -333,14 +333,14 @@ const addProduct = async (barcode,name,importprice,retailprice,category) => {
             category: category
         })
 
-        if (product){
+        if (product) {
             return product
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         return null
     }
 }
@@ -349,91 +349,91 @@ const deleteProduct = async (barcode) => {
     Product.sync()
     ProductOrder.sync()
 
-    try{
+    try {
         const productorder = await ProductOrder.findAll({
-            where:{
+            where: {
                 ProductBarcode: barcode
             }
         })
 
-        if (productorder.length===0){
-            try{
+        if (productorder.length === 0) {
+            try {
                 const product = await Product.destroy({
-                    where:{
+                    where: {
                         barcode: barcode
                     }
                 })
 
-                if (product){
+                if (product) {
                     return product
                 }
-                else{
+                else {
                     return null
                 }
             }
-            catch(err){
+            catch (err) {
                 console.log(err)
                 return null
             }
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
 }
 
-const updateProduct = async (barcode,name,importprice,retailprice,quantity) => {
+const updateProduct = async (barcode, name, importprice, retailprice, quantity) => {
     Product.sync()
 
-    try{
+    try {
         const product = await Product.update({
             name: name,
             importprice: importprice,
             retailprice: retailprice,
             quantity: quantity,
         },
-        {
-            where:{
-                barcode: barcode
-            }
-        })
+            {
+                where: {
+                    barcode: barcode
+                }
+            })
 
-        if (product){
+        if (product) {
             return product
         }
-        else{
+        else {
             return null
         }
     }
-    catch{
+    catch {
         return null
     }
 }
 
-const updateUser = async (email,username,phone,country) => {
+const updateUser = async (email, username, phone, country) => {
     User.sync()
 
-    try{
+    try {
         const user = User.update({
             fullname: username,
             phone: phone,
             country: country
         },
-        {
-            where:{
-                email: email
-            },
-            returnning: true
-        })
-        if (user){
+            {
+                where: {
+                    email: email
+                },
+                returnning: true
+            })
+        if (user) {
             return user
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -442,21 +442,21 @@ const updateUser = async (email,username,phone,country) => {
 const getAllOrderByEmail = async (email) => {
     Order.sync()
 
-    try{
+    try {
         const order = await Order.findAll({
-            where:{
+            where: {
                 seller: email
             }
         })
 
-        if (order){
+        if (order) {
             return order
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -472,15 +472,15 @@ const createOrder = async (body) => {
     const customerphone = body[0].customerphone
     const seller = body[0].seller
     const totalPrice = body[0].totalPrice
-    
-    try{
+
+    try {
         const customer = await Customer.create({
             name: customername,
             phone: customerphone,
             address: 'VN'
         })
     }
-    catch(err){
+    catch (err) {
         console.log(err)
     }
 
@@ -490,11 +490,11 @@ const createOrder = async (body) => {
         customerphone: customerphone,
         price: totalPrice
     })
-    try{
+    try {
         body.forEach(async p => {
-            if (index!==0){   
+            if (index !== 0) {
                 const product = await Product.findOne({
-                    where:{
+                    where: {
                         barcode: p.barcode
                     }
                 })
@@ -502,23 +502,23 @@ const createOrder = async (body) => {
                 await Product.update({
                     quantity: product.quantity - p.quantity
                 },
-                {
-                    where:{
-                        barcode: p.barcode
+                    {
+                        where: {
+                            barcode: p.barcode
+                        }
                     }
-                }
                 )
-    
-                await order.addProducts(product, {through:{quantity: p.quantity}})
+
+                await order.addProducts(product, { through: { quantity: p.quantity } })
             }
             index++
         })
         return order
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
-    }  
+    }
 }
 
 
@@ -581,4 +581,4 @@ const createOrder = async (body) => {
     }
 })();
 
-module.exports = {createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = { createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }

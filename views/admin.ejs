@@ -63,6 +63,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Barcode</th>
                         <th scope="col">Product Name</th>
+                        <th scope="col">Exist Number</th>
                         <th scope="col">Import Price</th>
                         <th scope="col">Retail Price</th>
                         <th scope="col">Category</th>
@@ -82,6 +83,10 @@
                             </td>
                             <td>
                                 <%= p.name %>
+                            </td>
+                            <td>
+                                <%= p.quantity %>
+                                    items
                             </td>
                             <td>
                                 <%= p.importprice %>
@@ -371,6 +376,12 @@
                                 placeholder="Enter product name">
                         </div>
 
+                        <div class="form-group">
+                            <label for="name">Quantity</label>
+                            <input name="quantity" type="number" class="form-control" id="quantity-dialog"
+                                placeholder="Enter product number">
+                        </div>
+
 
                         <div class="form-group">
                             <label for="importprice">Import Price</label>
@@ -384,11 +395,6 @@
                                 placeholder="Enter product retail price">
                         </div>
 
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <input name="category" type="text" class="form-control" id="category-dialog"
-                                placeholder="Enter product category">
-                        </div>
 
                         <button style=" width: 100%;" type="submit"
                             class="btn btn-primary update-product-btn">Update</button>
