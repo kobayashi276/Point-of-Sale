@@ -634,6 +634,25 @@ const getQuantityOfProductByOrderIdAndBarCode = async (orderid,barcode) => {
     }
 }
 
+const getAllOrder = async () => {
+    Order.sync()
+
+    try{
+        const order = await Order.findAll()
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+
+}
+
 
 (async () => {
     try {
@@ -694,5 +713,5 @@ const getQuantityOfProductByOrderIdAndBarCode = async (orderid,barcode) => {
     }
 })();
 
-module.exports = {getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {getAllOrder, getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
 
