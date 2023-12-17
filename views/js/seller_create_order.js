@@ -81,22 +81,27 @@ document.addEventListener('DOMContentLoaded', function () {
             var cellPrice = row.insertCell(3);
             var cellCategory = row.insertCell(4);
             var cellQuantity = row.insertCell(5);
-            var cellDelete = row.insertCell(6);
+            var cellCurrent = row.insertCell(6);
+            var cellDelete = row.insertCell(7);
 
             cellIndex.textContent = index + 1;
             cellBarcode.textContent = product.barcode;
             cellProductName.textContent = product.name;
             cellPrice.textContent = product.retailprice;
             cellCategory.textContent = product.category;
+            cellCurrent.textContent = product.quantity
 
             var quantityInput = document.createElement('input');
             quantityInput.type = 'number';
             quantityInput.value = selectedProductQuantity[index]; // You can set a default value if needed
             quantityInput.min = 1; // Set the minimum value
+            quantityInput.max = product.quantity; // Set the minimum value
             quantityInput.name = 'quantity'; // Optional: Add a name for the input
+            quantityInput.oninput = enforceMaxValue(this)
             cellQuantity.appendChild(quantityInput);
 
             quantityInput.addEventListener('input', (event) => {
+                enforceMaxValue(quantityInput)
                 updateTotalPrice()
             })
 
@@ -195,3 +200,16 @@ checkoutBtn.addEventListener('click', () => {
         });
 
 })
+
+function enforceMaxValue(input) {
+    var maxValue = parseInt(input.max);
+    var enteredValue = parseInt(input.value);
+
+    // Check if the entered value is greater than the maximum allowed value
+    if (enteredValue > maxValue) {
+        // If so, set the value to the maximum allowed value
+        input.value = maxValue;
+    }
+}
+
+
