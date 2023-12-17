@@ -1,7 +1,7 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
-const { createUser, authUserLogin, changeUserActiveStatus, getUser, getProductListByOrder, getAllUser, getAllProduct, getAllOrder } = require('../database/database')
+const { createUser, authUserLogin, getQuantityOfProductByOrderIdAndBarCode , getUser, getProductListByOrder, getAllUser, getAllProduct, getAllOrder } = require('../database/database')
 
 
 router.get('/', async (req, res) => {
