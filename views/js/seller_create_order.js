@@ -211,7 +211,7 @@ function createOrder() {
 
 var checkoutBtn = document.querySelector('.checkout-btn')
 
-checkoutBtn.addEventListener('click', () => {
+checkoutBtn.addEventListener('click', async () => {
     const customername = document.getElementById('customernameinput').value
     const customerphone = document.getElementById('customerphoneinput').value
     const sellername = document.getElementById('seller-name').innerHTML
@@ -237,7 +237,7 @@ checkoutBtn.addEventListener('click', () => {
         index++
     })
 
-    fetch(`${rootURL}/api/order`, {
+    await fetch(`${rootURL}/api/order`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

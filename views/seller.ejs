@@ -54,9 +54,6 @@
                 <!-- <li class="active"><a href="./dashboard.html"><i class="fa-solid fa-user"></i>Dashboard</a></li> -->
                 <li onclick="listPageContent('order')" class="active order-nav-bar"><span><i
                             class="fa-solid fa-receipt"></i>Orders</span></li>
-                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i
-                            class="fa-solid fa-chart-pie"></i>Reports</span>
-                </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
@@ -121,109 +118,6 @@
         </div>
 
 
-        <!-- Page report -->
-        <div class="page-content statistic-page disable-page">
-            <h2>Report</h2>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Barcode</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Import Price</th>
-                        <th scope="col">Retail Price</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Multiple rows of product data -->
-                    <tr class="table-animate">
-                        <th scope="row">1</th>
-                        <td>1209384750293</td>
-                        <td>iPhone 15 Pro Max</td>
-                        <td>30,599,000 đ</td>
-                        <td>34,990,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Add more rows with different products as needed -->
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
-    <!-- detail order -->
-    <div id="detailorder" class="modal fade" style="top: -5%">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Detail Order</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body" style="font-size: 24px; text-align: center;">
-                    <div>
-                        <h3>List of products</h3>
-                    </div>
-                    <div class="scrollable-div">
-
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin-right: 5px;"><b>Seller Email:</b></p>
-                        <p class="email-seller-order">Tan@gmail.com</p>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin-right: 5px;"><b>Total:</b></p>
-                        <p class="totalprice-order">153231135</p>
-                        <p> |VND</p>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin-right: 5px;"><b>Phone Number of Customer:</b></p>
-                        <p class="phone-customer-order">153135</p>
-                    </div>
-                    <div style="display: flex; align-items: center;">
-                        <p style="margin-right: 5px;"><b>Create At:</b></p>
-                        <p class="create-order-order">123456789</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 
 
