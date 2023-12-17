@@ -141,7 +141,7 @@ router.post('/order', async (req, res) => {
     const body = req.body
 
     const order = await createOrder(body)
-    const customer = await createCustomer(body[0].customername,body[0].customerphone)
+    const customer = await createCustomer(body[0].customername, body[0].customerphone)
     res.json(order)
 })
 
