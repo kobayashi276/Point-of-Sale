@@ -29,12 +29,65 @@ document.addEventListener('DOMContentLoaded', function () {
                     return product.barcode.toLowerCase().includes(searchTerm);
                 });
 
+                let body = document.getElementById('table-search-product');
+
                 matchingProducts.forEach(product => {
+                    // var tr = document.createElement('tr');
+
+                    // tr.classList.add("table-animate");
+                    // tr.style.backgroundColor = "#aeb5cb";
+
+                    // tr.innerHTML = `<th scope="row">
+
+                    //                 </th>
+                    //                 <td>
+                    //                     ${product.barcode}
+                    //                 </td>
+                    //                 <td>
+                    //                 ${product.name}
+                    //                 </td>
+                    //                 <td>
+                    //                 ${product.retailprice}
+                    //                  VND
+                    //                 </td>
+                    //                 <td>
+                    //                 ${product.category}
+                    //                 </td>
+                    //                 <td>
+                    //                 ${product.quantity}
+                    //                 </td>
+                    //                 <td>
+                    //                     <button style="width: 65px;" type="button"
+                    //                         class="btn btn-primary btn-sm AddItemToOrder">Add To Order</button>
+
+                    //                 </td>
+                    //                 `;
+
+
+                    // let addToOrder = document.querySelector('AddItemToOrder');
+                    // addToOrder.addEventListener('click', () => {
+                    //     if (!selectedBarCode.has(product.barcode)) {
+                    //         selectedProductIds.add(product);
+                    //         selectedBarCode.add(product.barcode)
+                    //         selectedProductQuantity.push(1)
+                    //         // console.log(product.name)
+                    //         updateTable();
+                    //         updateTotalPrice();
+                    //         searchBarcodeInput.value = ''; // Clear the search input after selection
+                    //         body.innerHTML = ''; // Clear search results
+                    //     }
+                    // })
+
+
+                    // body.appendChild(tr);
                     const resultItem = document.createElement('div');
                     resultItem.textContent = `${product.name} - ${product.barcode}`;
+
+
                     resultItem.addEventListener('click', function () {
                         // Add the selected product to the list
-                        console.log(!selectedBarCode.has(product.barcode))
+                        // console.log(!selectedBarCode.has(product.barcode))
+
                         if (!selectedBarCode.has(product.barcode)) {
                             selectedProductIds.add(product);
                             selectedBarCode.add(product.barcode)
@@ -213,3 +266,6 @@ function enforceMaxValue(input) {
 }
 
 
+function redirectToSellerPage() {
+    window.location.href = `${rootURL}/seller`
+}
