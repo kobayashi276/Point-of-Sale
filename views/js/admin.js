@@ -357,3 +357,14 @@ async function resendEmail(email){
         body: JSON.stringify(body)
     })
 }
+
+let btnDetailInvoice = [...document.querySelectorAll('.detailOrderSeller')];
+btnDetailInvoice.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        let idOrder = e.target.getAttribute("data-id");
+        
+        window.location.href = `${rootURL}/admin/invoice?orderid=${idOrder}`
+
+
+    })
+})
