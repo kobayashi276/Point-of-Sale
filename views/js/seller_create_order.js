@@ -247,6 +247,7 @@ checkoutBtn.addEventListener('click', () => {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
+            window.location.href = `${rootURL}/seller/invoice?orderid=${data.id}`
         })
         .catch(error => {
             console.error('Error:', error);

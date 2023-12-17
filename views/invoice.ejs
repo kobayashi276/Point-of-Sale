@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin.css">
+    <!-- <link rel="stylesheet" href="/seller.css"> -->
+    <style>
+        body,
+        html {
+            background: url('/image1.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Page product Content -->
+        <div class="page-content">
+            <div>
+                <h2>Products List</h2>
+            </div>
+            <table class="table table-hover" id="product-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    <% index=0 %>
+                        <% products.forEach(p=> { %>
+                            <tr>
+                                <th scope="col">
+                                    <%= index +1 %>
+                                </th>
+                                <th scope="col">
+                                    <%= p.barcode %>
+                                </th>
+                                <th scope="col">
+                                    <%= p.name %>
+                                </th>
+                                <th scope="col">
+                                    <%= p.retailprice %>
+                                </th>
+                                <th scope="col">
+                                    <%= p.category %>
+                                </th>
+                                <th scope="col">
+                                    <%= productQuantity[index] %>
+                                </th>
+                                <% index++ %>
+                            </tr>
+                            <% }) %>
+                </thead>
+            </table>
+            <h1 style="text-align: right;">Total price: <%= orders.price %> VND</h1>
+            <h2 style="text-align: right;">Customer Phone: <%= orders.customerphone %>
+                    </h1>
+                    <h2 style="text-align: right;">Seller: <%= orders.seller %>
+                            </h1>
+                            <button onclick="printToPDF()">Print to PDF</button>
+
+                            <script>
+                                function printToPDF() {
+                                    // Trigger browser's print functionality
+                                    window.print();
+                                }
+                            </script>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/seller_create_order.js"></script>
+
+</body>
+
+</html>
