@@ -9,6 +9,7 @@ const customerpermission = require('./middleware/customerpermission')
 const flash = require('express-flash')
 const jwt = require('jsonwebtoken')
 require('dotenv/config')
+const port = process.env.PORT || 3000
 
 const user = require('./controller/user')
 const admin = require('./controller/admin')
@@ -55,6 +56,6 @@ app.get('/', logincheck, (req, res) => {
 })
 
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('server run')
 })
