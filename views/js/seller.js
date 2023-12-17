@@ -1,4 +1,5 @@
 var rootURL = window.location.origin;
+var differentURL = 'http://localhost:3000';
 
 function listPageContent(pageType) {
     let order = document.querySelector('.orders-page');
@@ -40,7 +41,7 @@ btnUpdateSellerNav.addEventListener('click', (e) => {
         let country = document.querySelector('#country-dialog').value;
 
 
-        await fetch(`http://localhost:3000/api/user?email=${email}`, {
+        await fetch(`${differentURL}/api/user?email=${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -81,6 +82,23 @@ btnUpdateSellerNav.addEventListener('click', (e) => {
     })
 })
 
+
+document.querySelector('.btnSeeDetailInfo').addEventListener('click', async (e) => {
+    let email = e.target.getAttribute('data-email');
+
+
+    await fetch(`${differentURL}/api/user?email=${email}`, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('.name-seller').innerText = data.fullname;
+            document.querySelector('.email-seller').innerText = data.email;
+            document.querySelector('.phone-seller').innerText = data.phone == null ? 'seller does not have phone' : data.phone;
+            document.querySelector('.country-seller').innerText = data.country == null ? 'seller does not have country' : data.country;
+        })
+})
 
 
 
