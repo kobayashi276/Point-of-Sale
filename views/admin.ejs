@@ -220,6 +220,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% let totalPrice = 0 %>
                     <% orders.forEach((o,index) =>{ %>
                         <tr class="table-animate" style="    background-color: #e3c992;">
                             <th scope="row"><%= index+1 %></th>
@@ -230,10 +231,13 @@
                             <td><%= o.createdAt %></td>
                             <td><%= o.updatedAt %></td>
                         </tr>
+                        <% totalPrice+=parseFloat(o.price) %>
                     <% }) %>
 
                 </tbody>
+                
             </table>
+            <h1>Total: <%= totalPrice %></h1>
         </div>
 
 
