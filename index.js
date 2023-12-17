@@ -32,25 +32,25 @@ app.use(express.static(__dirname + '/views/js'))
 app.use('/', user)
 app.use('/admin', adminpermission, admin)
 app.use('/api', api)
-app.use('/seller',sellerpermission, seller)
-app.use('/customer',customerpermission,customer)
+app.use('/seller', sellerpermission, seller)
+app.use('/customer', customerpermission, customer)
 app.set('view engine', 'ejs')
 
 
 
 app.get('/', logincheck, (req, res) => {
     const token = req.session.access_token
-    const decoded = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET)
-    if (decoded.permission === 'admin'){
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+    if (decoded.permission === 'admin') {
         res.redirect('/admin')
     }
-    else if (decoded.permission === 'seller'){
+    else if (decoded.permission === 'seller') {
         res.redirect('/seller')
     }
-    else if (decoded.permission === 'customer'){
+    else if (decoded.permission === 'customer') {
         res.redirect('/customer')
     }
-    else{
+    else {
         res.send('index')
     }
 })
@@ -59,3 +59,8 @@ app.get('/', logincheck, (req, res) => {
 app.listen(port, () => {
     console.log('server run')
 })
+
+app.on('clientError', (err, socket) => {
+    console.error(err);
+    socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+});
