@@ -14,7 +14,7 @@ body {
 
 .wrapper {
   display: flex;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 }
 
@@ -124,4 +124,11 @@ a {
   height: 100%;
   transform: translateX(-50%);
   margin-left: 50%;
+}
+
+.scrollable-div {
+  height: 350px;
+  /* Chiều cao của <div> */
+  overflow: auto;
+  /* Tạo thanh cuộn khi nội dung vượt quá chiều cao */
 }
