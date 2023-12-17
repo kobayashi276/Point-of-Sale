@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Orders</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/admin.css">
+    <link rel="stylesheet" href="/seller.css">
     <style>
         body,
         html {
@@ -18,18 +22,157 @@
 </head>
 
 <body>
-    <!-- index.html -->
-    <!DOCTYPE html>
-    <html lang="en">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar bg-dark" style="width: 650px; height: 753px;">
+            <div class="welcome-page mb-0 ">
+                <img src="/avt_admin.png" class="mx-auto d-block"
+                    style="width: 30px; height: 30px;border-radius: 41%; ">
+                <h1 class="text-center">Point Of Sale</h1>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Create Order</title>
-    </head>
+            </div>
+            <div>
+                <table class="table table-hover table-nav">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Code</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="scrollable-div" style="margin-right: 10px;">
+                <table class="table table-hover table-nav">
 
-    <body>
-        <h1>Create Order</h1>
+
+                    <tbody>
+                        <!-- Multiple rows of product data -->
+
+                        <tr class="table-animate border-bottom" style="background-color: #fff;">
+
+                            <td>
+                                P001
+                            </td>
+                            <td>
+                                <div style=" display: flex;justify-content: space-between;">
+                                    <img src="/av3.png" class="mx-auto d-block"
+                                        style="width: 30px; height: 30px; margin-right: 10px;">
+                                    <p>product kkkkkkkk</p>
+                                </div>
+                            </td>
+                            <td style="margin-left: 30px;">
+                                <i class="fa-solid fa-square-minus"></i>
+                                12
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </td>
+                            <td>
+                                12000 VND
+                            </td>
+
+                            <td>
+                                <button style="width: 65px;" type="button"
+                                    class="btn btn-primary btn-sm EditBtnDetailProduct">Delete</button>
+
+                            </td>
+                        </tr>
+
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- margin: 10px 0 10px 0; -->
+            <div class="text-end" style="padding:  0 5px 0 5px; display: flex; align-items: center;height: 40px;">
+                <p style="flex:1">Discount:</p>
+                <p>0</p>
+                <p>%</p>
+            </div>
+
+            <div class="text-end" style="padding: 0 5px 0 5px; display: flex; align-items: center;height: 40px;">
+                <p style="flex:1">Total:</p>
+                <p>12.000.000</p>
+                <p style="margin-left: 2px;">VND</p>
+            </div>
+
+
+            <!-- info of seller -->
+            <div class="text-end" style="padding:0 5px 0 5px; display: flex; align-items: center;height: 40px;">
+                <p style="flex:1">Seller Name:</p>
+                <b>TanPhuocdt1</b>
+            </div>
+
+            <!-- form info off CUSTOMER -->
+            <div>
+                <form class="form-inline">
+
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input name="customerPhone" type="text" class="form-control" id="inputPassword2"
+                            placeholder="Customer Name">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="inputPassword2" placeholder="Phone">
+                    </div>
+
+                </form>
+            </div>
+            <!-- action -->
+            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                <button class="btn btn-danger" style="width: 33%;">Cancel</button>
+                <button class="btn btn-warning" style="width: 33%;">Reset</button>
+                <button class="btn btn-primary" style="width: 33%;">Check out</button>
+            </div>
+
+
+        </nav>
+
+
+
+        <!-- Page product Content -->
+        <div class="page-content">
+            <div>
+                <h2>Products List</h2>
+
+                <!-- <button type="button" style="margin-left:20px ;height: 35px;align-items: center;"
+                    class="btn btn-primary btn-sm" onclick="redirectToAddProduct()">Add New Product</button> -->
+                <div>
+                    <label for="searchBarcode">Search by Barcode:</label>
+                    <input type="text" id="searchBarcode" name="searchBarcode" placeholder="Enter barcode"
+                        autocomplete="off">
+                    <!-- <div id="searchResults"></div> -->
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Barcode</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Thumbnail</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- display data here -->
+                    <!-- Multiple rows of product data -->
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- <h1>Create Order</h1>
         <form id="orderForm">
             <label for="customerPhone">Customer Phone:</label>
             <input type="text" id="customerPhone" name="customerPhone" required>
@@ -39,18 +182,17 @@
             <div id="searchResults"></div>
 
             <button type="button" onclick="createOrder()">Create Order</button>
+            <button type="button" onclick="createOrder()">Reset Order</button>
 
             <div id="selectedProducts">
                 <h2>Selected Products</h2>
                 <ul id="selectedProductsList"></ul>
             </div>
-        </form>
-    </body>
+        </form> -->
 
-    </html>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/seller_create_order.js"></script>
+    <!-- <script src="/seller_create_order.js"></script> -->
 
 </body>
 
