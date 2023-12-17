@@ -346,3 +346,14 @@ function redirectToAddProduct() {
 
     window.location.href = `${rootURL}/api/addnewproduct`
 }
+
+async function resendEmail(email){
+    const body = {email: email }
+    await fetch(`${rootURL}/register`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    })
+}
