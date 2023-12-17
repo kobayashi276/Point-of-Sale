@@ -77,6 +77,7 @@ router.get('/register', adminpermission, (req, res) => {
 
 router.post('/register', adminpermission, async (req, res) => {
     const { email } = req.body
+    console.log(email)
 
     const password = generatePassword();
     const payload = {
