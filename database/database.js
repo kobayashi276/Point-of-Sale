@@ -582,10 +582,12 @@ const createCustomer = async (name,phone) => {
 
     const hashed = await bcrypt.hash(phone, 10)
 
+    const email = `${phone}@gmail.com`
+
     try{
         const customer = await User.create({
             fullname: phone,
-            email: `customer@gmail.com`,
+            email: email,
             password: hashed,
             phone: phone,
             country: 'VN',

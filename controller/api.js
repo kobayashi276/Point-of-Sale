@@ -15,7 +15,7 @@ router.get('/user', async (req, res) => {
     res.json(user)
 })
 
-router.put('/user', sellerpermission, async (req, res) => {
+router.put('/user', async (req, res) => {
     const { email } = req.query
 
     const { username, phone, country } = req.body
