@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct, updateUser, createOrder, getAllProduct } = require('../database/database')
+const { addProduct, getUser, getProduct, unblockUser, lockUser, deleteProduct, updateProduct, updateUser, createOrder, getAllProduct , getProductListByOrder } = require('../database/database')
 const adminpermission = require('../middleware/adminpermission')
 const jwt = require('jsonwebtoken')
 const sellerpermission = require('../middleware/sellerpermission')
@@ -142,6 +142,19 @@ router.post('/order', async (req, res) => {
 
     const order = await createOrder(body)
     res.json(order)
+})
+
+router.get('/invoice', async(req, res) =>{
+    const {id} = req.query
+
+    const rest = await getProductListByOrder(id)
+
+    if (rest){
+        res.json(rest)
+    }
+    else{
+        res.json(null)
+    }
 })
 
 module.exports = router

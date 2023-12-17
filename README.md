@@ -40,3 +40,7 @@ OAUTH_REFRESH_TOKEN=1//040rMvaXyGgKjCgYIARAAGAQSNwF-L9IraSViT9S6WKK3CyI3OmX815am
 
 - GET localhost:3000/api/unblock?email=<> Unblock user via email
 
+- POST localhost:3000/api/order Add order and list of product
+
+- GET localhost:3000/api/invoice?id=<> Get order and product list data
+
