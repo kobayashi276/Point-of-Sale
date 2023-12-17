@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
     const orders = await getAllOrderByEmail(decoded.email)
 
 
-    if (typeof orders == 'undefined') {
+
+    if (orders == null) {
         res.render('seller', {
             email: decoded.email
         })
