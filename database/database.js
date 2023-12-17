@@ -466,11 +466,23 @@ const createOrder = async (body) => {
     Order.sync()
     ProductOrder.sync()
     Product.sync()
+    Customer.sync()
 
     const customername = body[0].customername
     const customerphone = body[0].customerphone
     const seller = body[0].seller
     const totalPrice = body[0].totalPrice
+    
+    try{
+        const customer = await Customer.create({
+            name: customername,
+            phone: customerphone,
+            address: 'VN'
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
 
     let index = 0
     const order = await Order.create({
@@ -486,6 +498,16 @@ const createOrder = async (body) => {
                         barcode: p.barcode
                     }
                 })
+
+                await Product.update({
+                    quantity: product.quantity - p.quantity
+                },
+                {
+                    where:{
+                        barcode: p.barcode
+                    }
+                }
+                )
     
                 await order.addProducts(product, {through:{quantity: p.quantity}})
             }
@@ -524,7 +546,8 @@ const createOrder = async (body) => {
             name: 'Giay',
             importprice: '999999',
             retailprice: '9999999',
-            category: 'Clothes'
+            category: 'Clothes',
+            quantity: 100
         });
     } catch (error) {
     }
@@ -537,7 +560,8 @@ const createOrder = async (body) => {
             name: 'Giay',
             importprice: '999999',
             retailprice: '9999999',
-            category: 'Clothes'
+            category: 'Clothes',
+            quantity: 100
         });
     } catch (error) {
     }
@@ -550,7 +574,8 @@ const createOrder = async (body) => {
             name: 'Giay',
             importprice: '999999',
             retailprice: '9999999',
-            category: 'Clothes'
+            category: 'Clothes',
+            quantity: 100
         });
     } catch (error) {
     }
