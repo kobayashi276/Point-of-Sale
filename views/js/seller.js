@@ -105,3 +105,29 @@ document.querySelector('.btnSeeDetailInfo').addEventListener('click', async (e) 
 function redirectToAddOrder() {
     window.location.href = `${rootURL}/seller/new-order`
 }
+
+
+
+let btnDetailInvoice = [...document.querySelectorAll('.detailOrderSeller')];
+btnDetailInvoice.forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+        let idOrder = e.target.getAttribute("data-id");
+        let emailSeller = e.target.getAttribute("data-email");
+        let customerPhone = e.target.getAttribute("data-customerphone");
+        let createAt = e.target.getAttribute("data-create");
+        let price = e.target.getAttribute("data-price");
+
+
+        document.querySelector('.email-seller-order').innerText = emailSeller;
+        document.querySelector('.totalprice-order').innerText = price;
+        document.querySelector('.phone-customer-order').innerText = customerPhone;
+        document.querySelector('.create-order-order').innerText = createAt;
+
+
+
+
+
+    })
+})
+
+
