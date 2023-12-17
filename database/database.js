@@ -671,47 +671,5 @@ const getAllOrder = async () => {
     }
 })();
 
-(async () => {
-    try {
-        const product = await Product.create({
-            barcode: '0000001',
-            name: 'Giay',
-            importprice: '999999',
-            retailprice: '9999999',
-            category: 'Clothes',
-            quantity: 100
-        });
-    } catch (error) {
-    }
-})();
-
-(async () => {
-    try {
-        const product = await Product.create({
-            barcode: '0000002',
-            name: 'Giay',
-            importprice: '999999',
-            retailprice: '9999999',
-            category: 'Clothes',
-            quantity: 100
-        });
-    } catch (error) {
-    }
-})();
-
-(async () => {
-    try {
-        const product = await Product.create({
-            barcode: '0000003',
-            name: 'Giay',
-            importprice: '999999',
-            retailprice: '9999999',
-            category: 'Clothes',
-            quantity: 100
-        });
-    } catch (error) {
-    }
-})();
-
 module.exports = {getAllOrder, getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
 
