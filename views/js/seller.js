@@ -41,7 +41,7 @@ btnUpdateSellerNav.addEventListener('click', (e) => {
         let country = document.querySelector('#country-dialog').value;
 
 
-        await fetch(`${differentURL}/api/user?email=${email}`, {
+        await fetch(`${rootURL}/api/user?email=${email}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -87,7 +87,7 @@ document.querySelector('.btnSeeDetailInfo').addEventListener('click', async (e) 
     let email = e.target.getAttribute('data-email');
 
 
-    await fetch(`${differentURL}/api/user?email=${email}`, {
+    await fetch(`${rootURL}/api/user?email=${email}`, {
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
     })
