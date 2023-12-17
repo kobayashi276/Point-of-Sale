@@ -41,9 +41,6 @@
                             class="fa-solid fa-receipt"></i>Orders</span></li>
                 <li onclick="listPageContent('seller')" class="seller-nav-bar"><span><i
                             class="fa-solid fa-user"></i>Sellers</span></li>
-                <li onclick="listPageContent('statistic')" class="statistic-nav-bar"><span><i
-                            class="fa-solid fa-chart-pie"></i>Reports</span>
-                </li>
                 <li><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </nav>
@@ -241,72 +238,7 @@
         </div>
 
 
-        <!-- Page report -->
-        <div class="page-content statistic-page disable-page">
-            <h2>Report</h2>
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Barcode</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Import Price</th>
-                        <th scope="col  ">Retail Price</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Thumbnail</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Multiple rows of product data -->
-                    <tr class="table-animate">
-                        <th scope="row">1</th>
-                        <td>1209384750293</td>
-                        <td>iPhone 15 Pro Max</td>
-                        <td>30,599,000 đ</td>
-                        <td>34,990,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="iphone_thumbnail.jpg" alt="iPhone" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-                    <!-- Add more rows with different products as needed -->
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-
-                    <tr class="table-animate">
-                        <th scope="row">2</th>
-                        <td>9328475010293</td>
-                        <td>Samsung Galaxy S22</td>
-                        <td>22,500,000 đ</td>
-                        <td>27,000,000 đ</td>
-                        <td>Phone</td>
-                        <td><img src="samsung_thumbnail.jpg" alt="Samsung" style="width: 50px; height: auto;"></td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-
-
-                </tbody>
-            </table>
-        </div>
-
-    </div>
+        
 
     <!-- resened email verify user -->
     <div id="resendEmail" class="modal fade" style="top: 30%">
