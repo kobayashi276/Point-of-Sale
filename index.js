@@ -5,6 +5,7 @@ const session = require('express-session');
 const logincheck = require('./middleware/logincheck')
 const adminpermission = require('./middleware/adminpermission')
 const sellerpermission = require('./middleware/sellerpermission')
+const customerpermission = require('./middleware/customerpermission')
 const flash = require('express-flash')
 const jwt = require('jsonwebtoken')
 require('dotenv/config')
@@ -13,6 +14,7 @@ const user = require('./controller/user')
 const admin = require('./controller/admin')
 const api = require('./controller/api')
 const seller = require('./controller/seller')
+const customer = require('./controller/customer')
 
 
 app.use(session({
@@ -30,6 +32,7 @@ app.use('/', user)
 app.use('/admin', adminpermission, admin)
 app.use('/api', api)
 app.use('/seller',sellerpermission, seller)
+app.use('/customer',customerpermission,customer)
 app.set('view engine', 'ejs')
 
 
@@ -42,6 +45,9 @@ app.get('/', logincheck, (req, res) => {
     }
     else if (decoded.permission === 'seller'){
         res.redirect('/seller')
+    }
+    else if (decoded.permission === 'customer'){
+        res.redirect('/customer')
     }
     else{
         res.send('index')
