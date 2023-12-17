@@ -609,6 +609,31 @@ const createCustomer = async (name,phone) => {
     }
 }
 
+const getQuantityOfProductByOrderIdAndBarCode = async (orderid,barcode) => {
+    ProductOrder.sync()
+
+    try{
+        const productorder = await ProductOrder.findOne({
+            where:{
+                ProductBarcode: barcode,
+                OrderId: orderid
+            }
+        })
+
+
+        if (productorder){
+            return productorder.quantity
+        }
+        else{
+            returnn0
+        }
+    }
+    catch(err){
+        console.log(err)
+        return 0
+    }
+}
+
 
 (async () => {
     try {
@@ -669,4 +694,4 @@ const createCustomer = async (name,phone) => {
     }
 })();
 
-module.exports = {getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
