@@ -78,12 +78,13 @@
                         <th scope="col">Price</th>
                         <th scope="col">Create Date</th>
                         <th scope="col">Update At</th>
+                        <th>Action</th>
                 </thead>
                 <tbody>
                     <% if(orders!=null){%>
                         <!-- Multiple rows of product data -->
                         <% orders.forEach(o=> { %>
-                            <tr class="table-animate">
+                            <tr class="table-animate" style="background-color: #a4d5a7;">
                                 <th scope="row">
                                     <%= o.id %>
                                 </th>
@@ -94,10 +95,18 @@
                                     <%= o.price %>
                                 </td>
                                 <td>
-                                    <%= o.createAt %>
+                                    <%= o.createdAt %>
                                 </td>
                                 <td>
                                     <%= o.updatedAt %>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-sm detailOrderSeller"
+                                        data-id="<%= o.id %>" data-email="<%= o.seller%>"
+                                        data-customerphone="<%= o.customerphone%>" data-create="<%= o.createdAt%>"
+                                        data-toggle="modal" data-price="<%= o.price%>" data-target="#detailorder">
+                                        Detail
+                                    </button>
                                 </td>
                             </tr>
 
@@ -179,7 +188,43 @@
 
     </div>
 
+    <!-- detail order -->
+    <div id="detailorder" class="modal fade" style="top: -5%">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail Order</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body" style="font-size: 24px; text-align: center;">
+                    <div>
+                        <h3>List of products</h3>
+                    </div>
+                    <div class="scrollable-div">
 
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Seller Email:</b></p>
+                        <p class="email-seller-order">Tan@gmail.com</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Total:</b></p>
+                        <p class="totalprice-order">153231135</p>
+                        <p> |VND</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Phone Number of Customer:</b></p>
+                        <p class="phone-customer-order">153135</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <p style="margin-right: 5px;"><b>Create At:</b></p>
+                        <p class="create-order-order">123456789</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 
