@@ -31,7 +31,7 @@
                 <h1 class="text-center">Point Of Sale</h1>
 
             </div>
-            <div>
+            <!-- <div>
                 <table class="table table-hover table-nav">
                     <thead class="thead-dark">
                         <tr>
@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+            </div> -->
             <div class="scrollable-div" style="margin-right: 10px;">
                 <table class="table table-hover table-nav">
 
@@ -54,7 +54,7 @@
                     <tbody>
                         <!-- Multiple rows of product data -->
 
-                        <tr class="table-animate border-bottom" style="background-color: #fff;">
+                        <!-- <tr class="table-animate border-bottom" style="background-color: #fff;">
 
                             <td>
                                 P001
@@ -63,7 +63,7 @@
                                 <div style=" display: flex;justify-content: space-between;">
                                     <img src="/av3.png" class="mx-auto d-block"
                                         style="width: 30px; height: 30px; margin-right: 10px;">
-                                    <p>product kkkkkkkk</p>
+                                    <p>product   kkkkkkkk</p>
                                 </div>
                             </td>
                             <td style="margin-left: 30px;">
@@ -80,7 +80,7 @@
                                     class="btn btn-primary btn-sm EditBtnDetailProduct">Delete</button>
 
                             </td>
-                        </tr>
+                        </tr> -->
 
 
 
@@ -104,7 +104,9 @@
             <!-- info of seller -->
             <div class="text-end" style="padding:0 5px 0 5px; display: flex; align-items: center;height: 40px;">
                 <p style="flex:1">Seller Name:</p>
-                <b id="seller-name"><%= email %></b>
+                <b id="seller-name">
+                    <%= email %>
+                </b>
             </div>
 
             <!-- form info off CUSTOMER -->
@@ -116,14 +118,15 @@
                             placeholder="Customer Name" required>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <input name="customerphoneinput" type="text" class="form-control" placeholder="Phone" id="customerphoneinput" required>
+                        <input name="customerphoneinput" type="text" class="form-control" placeholder="Phone"
+                            id="customerphoneinput" required>
                     </div>
 
                 </form>
             </div>
             <!-- action -->
             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                <button class="btn btn-danger" style="width: 33%;">Cancel</button>
+                <button onclick="redirectToSellerPage()" class="btn btn-danger" style="width: 33%;">Cancel</button>
                 <button class="btn btn-warning" style="width: 33%;">Reset</button>
                 <button class="btn btn-primary checkout-btn" style="width: 33%;">Check out</button>
             </div>
@@ -155,19 +158,21 @@
                         <th scope="col">Product Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Current</th>
+                        <!-- <th scope="col">Quantity</th> -->
+                        <th scope="col">Exist Number</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody id="table-search-product">
                     <!-- display data here -->
                     <!-- Multiple rows of product data -->
                     <div id="selectedProducts">
                         <h2>Selected Products</h2>
                         <ul id="selectedProductsList"></ul>
                     </div>
+
+
 
 
                 </tbody>
