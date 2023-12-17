@@ -462,26 +462,41 @@ const getAllOrderByEmail = async (email) => {
     }
 }
 
-const createOrder = async (seller,customerphone) => {
+const createOrder = async (body) => {
     Order.sync()
+    ProductOrder.sync()
+    Product.sync()
 
+    const customername = body[0].customername
+    const customerphone = body[0].customerphone
+    const seller = body[0].seller
+    const totalPrice = body[0].totalPrice
+
+    let index = 0
+    const order = await Order.create({
+        seller: seller,
+        customerphone: customerphone,
+        price: totalPrice
+    })
     try{
-        const order = await Order.create({
-            seller: seller,
-            customerphone: customerphone
+        body.forEach(async p => {
+            if (index!==0){   
+                const product = await Product.findOne({
+                    where:{
+                        barcode: p.barcode
+                    }
+                })
+    
+                await order.addProducts(product, {through:{quantity: p.quantity}})
+            }
+            index++
         })
-
-        if (order){
-            return order
-        }
-        else{
-            return null
-        }
+        return order
     }
     catch(err){
         console.log(err)
         return null
-    }
+    }  
 }
 
 

@@ -104,7 +104,7 @@
             <!-- info of seller -->
             <div class="text-end" style="padding:0 5px 0 5px; display: flex; align-items: center;height: 40px;">
                 <p style="flex:1">Seller Name:</p>
-                <b>TanPhuocdt1</b>
+                <b id="seller-name"><%= email %></b>
             </div>
 
             <!-- form info off CUSTOMER -->
@@ -112,11 +112,11 @@
                 <form class="form-inline">
 
                     <div class="form-group mx-sm-3 mb-2">
-                        <input name="customername" type="text" class="form-control" id="customername"
+                        <input name="customernameinput" type="text" class="form-control" id="customernameinput"
                             placeholder="Customer Name" required>
                     </div>
                     <div class="form-group mx-sm-3 mb-2">
-                        <input type="text" class="form-control" id="customerphone" placeholder="Phone" id="customerphone" required>
+                        <input name="customerphoneinput" type="text" class="form-control" placeholder="Phone" id="customerphoneinput" required>
                     </div>
 
                 </form>
@@ -125,7 +125,7 @@
             <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn btn-danger" style="width: 33%;">Cancel</button>
                 <button class="btn btn-warning" style="width: 33%;">Reset</button>
-                <button class="btn btn-primary" style="width: 33%;">Check out</button>
+                <button class="btn btn-primary checkout-btn" style="width: 33%;">Check out</button>
             </div>
 
 
