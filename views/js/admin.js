@@ -30,7 +30,7 @@ btnDeleteAll.addEventListener('click', (e) => {
     })
 })*/
 
-
+//set detail info
 let btnDelete = [...document.querySelectorAll('.delete')];
 btnDelete.forEach(btn => {
 
@@ -154,11 +154,12 @@ btnUpdateProduct.addEventListener('click', async (e) => {
                 document.querySelector('.msg-update').style.display = "block";
                 document.querySelector('.msg-update').classList.add("alert-success");
                 setTimeout(() => {
-                    document.querySelector('.closeUpdate').click();
+                    // document.querySelector('.closeUpdate').click();
+                    window.location.reload();
                 }, 3000)
             }
 
-            window.location.href = `${rootURL}/admin`
+            // window.location.href = `${rootURL}/admin`
 
 
         })
@@ -214,9 +215,10 @@ btnRemoveProduct.addEventListener(('click'), async (e) => {
             }
 
             setTimeout(() => {
-                document.querySelector('.closeRemove').click();
+                // document.querySelector('.closeRemove').click();
+                window.location.reload();
             }, 3000)
-            window.location.reload();
+            // window.location.reload();
 
         })
         .catch(err => {
