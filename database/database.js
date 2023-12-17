@@ -487,7 +487,7 @@ const createOrder = async (body) => {
 
     let index = 0
     const order = await Order.create({
-        seller: seller,
+        seller: seller.trim(),
         customerphone: customerphone,
         price: totalPrice
     })
@@ -557,34 +557,34 @@ const getProductListByOrder = async (orderid) => {
 const getOrderByCustomerPhone = async (customerphone) => {
     Order.sync()
 
-    try{
+    try {
         const order = await Order.findAll({
-            where:{
+            where: {
                 customerphone: customerphone
             }
         })
 
-        if (order){
+        if (order) {
             return order
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
 }
 
-const createCustomer = async (name,phone) => {
+const createCustomer = async (name, phone) => {
     User.sync()
 
     const hashed = await bcrypt.hash(phone, 10)
 
     const email = `${phone}@gmail.com`
 
-    try{
+    try {
         const customer = await User.create({
             fullname: phone,
             email: email,
@@ -596,14 +596,14 @@ const createCustomer = async (name,phone) => {
             lock: 'false',
         })
 
-        if (customer){
+        if (customer) {
             return customer
         }
-        else{
+        else {
             return null
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err)
         return null
     }
@@ -714,3 +714,4 @@ const getAllOrder = async () => {
 })();
 
 module.exports = {getAllOrder, getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+
