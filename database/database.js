@@ -671,5 +671,125 @@ const getAllOrder = async () => {
     }
 })();
 
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P1',
+            name: 'Tra Tac',
+            importprice: '5000',
+            retailprice: '15000',
+            category: 'Water',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P2',
+            name: 'Aquafina Water',
+            importprice: '4000',
+            retailprice: '6000',
+            category: 'Water',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P3',
+            name: 'Banh Bao',
+            importprice: '10000',
+            retailprice: '20000',
+            category: 'Food',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P4',
+            name: 'Xuc Xich',
+            importprice: '5000',
+            retailprice: '7000',
+            category: 'Food',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P5',
+            name: 'Tra Xanh',
+            importprice: '5000',
+            retailprice: '15000',
+            category: 'Water',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P6',
+            name: 'Coca Cola',
+            importprice: '3000',
+            retailprice: '9000',
+            category: 'Water',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P7',
+            name: 'Pepsi',
+            importprice: '3200',
+            retailprice: '8500',
+            category: 'Water',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P8',
+            name: 'Lays Potato Chips',
+            importprice: '7000',
+            retailprice: '12000',
+            category: 'Snacks',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+(async () => {
+    try {
+        const product = await Product.create({
+            barcode: 'P9',
+            name: 'KitKat',
+            importprice: '5000',
+            retailprice: '9000',
+            category: 'Snacks',
+            quantity: 100
+        });
+    } catch (error) {
+    }
+})();
+
+
+
 module.exports = {getAllOrder, getQuantityOfProductByOrderIdAndBarCode, getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
 
