@@ -19,6 +19,7 @@ body {
 }
 
 .sidebar {
+  height: 753px;
   width: var(--sidebar-width);
   background-color: var(--sidebar-bg-color);
   color: var(--sidebar-text-color);
