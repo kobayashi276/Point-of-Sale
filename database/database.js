@@ -554,6 +554,61 @@ const getProductListByOrder = async (orderid) => {
     }
 }
 
+const getOrderByCustomerPhone = async (customerphone) => {
+    Order.sync()
+
+    try{
+        const order = await Order.findAll({
+            where:{
+                customerphone: customerphone
+            }
+        })
+
+        if (order){
+            return order
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+const createCustomer = async (name,phone) => {
+    User.sync()
+
+    const hashed = await bcrypt.hash(phone, 10)
+
+    const email = `${phone}@gmail.com`
+
+    try{
+        const customer = await User.create({
+            fullname: phone,
+            email: email,
+            password: hashed,
+            phone: phone,
+            country: 'VN',
+            permission: 'customer',
+            active: 'true',
+            lock: 'false',
+        })
+
+        if (customer){
+            return customer
+        }
+        else{
+            return null
+        }
+    }
+    catch(err){
+        console.log(err)
+        return null
+    }
+}
+
 
 (async () => {
     try {
@@ -614,4 +669,4 @@ const getProductListByOrder = async (orderid) => {
     }
 })();
 
-module.exports = { getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {getOrderByCustomerPhone, createCustomer, getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
