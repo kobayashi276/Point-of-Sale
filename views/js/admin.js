@@ -98,18 +98,21 @@ btnEditOnProduct.forEach(btn => {
     btn.addEventListener('click', (e) => {
         let barcode = e.target.getAttribute("data-barcode");
         let oldName = e.target.getAttribute("data-name");
+        let oldQty = e.target.getAttribute("data-quantity");
         let oldImportPrice = e.target.getAttribute("data-import");
         let oldRetailPrice = e.target.getAttribute("data-retail");
         let oldCategory = e.target.getAttribute("data-category");
 
         let barcodeInput = document.querySelector('#barcode-dialog');
         let nameInput = document.querySelector('#name-dialog');
+        let quantityInput = document.querySelector('#quantity-dialog');
         let importInput = document.querySelector('#importprice-dialog');
         let retailInput = document.querySelector('#retailprice-dialog');
         let categoryInput = document.querySelector('#category-dialog');
 
         barcodeInput.value = barcode;
         nameInput.value = oldName;
+        quantityInput.value = oldQty;
         importInput.value = oldImportPrice;
         retailInput.value = oldRetailPrice;
         categoryInput.value = oldCategory;
