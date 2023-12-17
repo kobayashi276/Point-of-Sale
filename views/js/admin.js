@@ -1,5 +1,5 @@
 var rootURL = window.location.origin; //if you need to go deep after admin, you need to + '/....'
-
+// var localURL = 
 
 
 /*let btnDeleteAll = document.querySelector('.deleteAll');
@@ -125,9 +125,10 @@ btnUpdateProduct.addEventListener('click', async (e) => {
 
     let barcodeInput = document.querySelector('#barcode-dialog').value;
     let nameInput = document.querySelector('#name-dialog').value;
+    let quantityInput = document.querySelector('#quantity-dialog').value;
     let importInput = document.querySelector('#importprice-dialog').value;
     let retailInput = document.querySelector('#retailprice-dialog').value;
-    let categoryInput = document.querySelector('#category-dialog').value;
+
 
     await fetch(`${rootURL}/api/product?barcode=${barcodeInput}`, {
         method: 'PUT',
@@ -136,7 +137,7 @@ btnUpdateProduct.addEventListener('click', async (e) => {
             name: nameInput,
             importprice: importInput,
             retailprice: retailInput,
-            category: categoryInput
+            quantity: quantityInput
         })
     })
         .then(response => response.json())

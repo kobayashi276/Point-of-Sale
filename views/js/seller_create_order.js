@@ -163,7 +163,7 @@ checkoutBtn.addEventListener('click', () => {
     const customerphone = document.getElementById('customerphoneinput').value
     const sellername = document.getElementById('seller-name').innerHTML
     const totalPriceP = document.getElementById('total-price')
-    console.log(customername,customerphone)
+    console.log(customername, customerphone)
     let List = []
     List.push({
         customername: customername,
