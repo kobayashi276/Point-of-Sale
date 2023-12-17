@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize')
+const { Sequelize, or } = require('sequelize')
 const userModel = require('./model/user')
 const authStatusModel = require('./model/authstatus')
 const productModel = require('./model/product')
@@ -515,7 +515,39 @@ const createOrder = async (body) => {
         })
         return order
     }
-    catch (err) {
+    catch(err){
+        console.log(err)
+        return null
+    }  
+}
+
+const getProductListByOrder = async (orderid) => {
+    Order.sync()
+    Product.sync()
+    ProductOrder.sync()
+
+    try{
+        const order = await Order.findOne({
+            where:{
+                id: orderid
+            },
+            include: Product
+        })
+
+        if (order){
+            const product = order.Products
+    
+            return {
+                order: order,
+                product: product
+            }
+        }
+        else{
+            return null
+        }
+    
+    }
+    catch(err){
         console.log(err)
         return null
     }
@@ -581,4 +613,4 @@ const createOrder = async (body) => {
     }
 })();
 
-module.exports = { createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
+module.exports = {getProductListByOrder, createOrder, getAllOrderByEmail, updateUser, updateProduct, deleteProduct, addProduct, lockUser, unblockUser, createUser, authUserLogin, createAuthStatus, getTokenVerifyAuthStatus, changeUserActiveStatus, getUser, changeUserPassword, getAllUser, getAllProduct, getProduct }
