@@ -1,5 +1,5 @@
 # Introduction
-A point of sale system for manage seller and selling products. It have admin, seller and customer permission account for checking their order. Using 0Auth from Google for sending verification mail when register a new user.
+A point of sale system for manage seller and selling products made by ExpressJS and EJS. It have admin, seller and customer permission account for checking their order. Using 0Auth from Google for sending verification mail when register a new user.
 
 # How to install
 - Create your node project ``` npm init -y ```
